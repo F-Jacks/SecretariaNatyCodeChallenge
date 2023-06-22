@@ -21,7 +21,9 @@ body {
   background: black;
 }
 
-
+a {
+  cursor: pointer
+}
 /* 
  NORMALIZE
 */

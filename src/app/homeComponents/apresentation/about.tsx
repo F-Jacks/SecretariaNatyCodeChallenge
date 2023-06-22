@@ -1,6 +1,6 @@
 const About = () => {
     return (
-        <div className="grow flex flex-col justify-between">
+        <div className="w-full max-w-5xl row-start-2 flex flex-col justify-between">
             <h1 className="text-2xl text-center text-white">
                 {"QuickRide"}
             </h1>
