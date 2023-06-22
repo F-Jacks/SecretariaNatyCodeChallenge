@@ -1,16 +1,9 @@
-import Image from 'next/image'
+import Apresentation from "./homeComponents/apresentation";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {/* <h2>{}</h2>
-      <Link>{}</Link>
-      <Image 
-        src={}
-        alt={}
-        width={}
-        height={}
-      /> */}
+    <main className="flex min-h-screen flex-col gap-y-[90px] w-[100vw]">
+      <Apresentation />
     </main>
   )
 }
