@@ -18,8 +18,8 @@ const Comfort = () => {
                 <h2 className="text-white text-xl row-start-2 mb-16 lt:mb-0 lt:row-start-1">
                     {"Comfort"}
                 </h2>
-                <p className="text-sm text-white row-start-3 lt:row-start-2 col-span-2 lg:col-span-1">
-                    {'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris feugiat ipsum vel pharetra scelerisque. Aliquam quis massa vel tellus consectetur volutpat vel vitae mauris. Nulla facilisi. Vestibulum auctor, lectus id suscipit posuere, enim justo vulputate velit, et rhoncus ligula dui ac purus. Phasellus id lobortis orci, id tempor sem. Sed sed aliquam tellus. In auctor, risus vel volutpat tincidunt, neque odio lacinia lectus, ut dapibus leo tortor non elit.'}
+                <p className="text-sm text-center text-white row-start-3 lt:row-start-2 col-span-2 lg:col-span-1">
+                    {'jkfweghq çkdlfhiowe çiofwey dçklfh oidw isydpfiowe diosyu oiewhpewio çksdafpiwe çsdahfwipe saoisfhhpwei sçdiewpio çsdiypwih sdoiypyiew iowfhewpiu dçkashfpwei çdsakfhaiuwe klehw weiuoewri çoiafdyhpiew õidew sdlkhfw daçiofywpe'}
                 </p>
             </div>
         </section>
