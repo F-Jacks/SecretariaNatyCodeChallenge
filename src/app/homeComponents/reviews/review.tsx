@@ -1,11 +1,9 @@
+import { IReview } from "@/types/home";
 import classNames from "classnames";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
-interface Props {
-    side: "left" | "right",
-    image: {src: StaticImageData | string, alt: string},
-    text: string,
-    author: string
+interface Props extends IReview {
+    side: "left" | "right"
 }
 
 
@@ -21,6 +19,7 @@ const Review = (props: Props) => {
                 width={320}
                 height={320}
                 className='w-14 min-w-[3.5rem] rounded-full row-span-2 h-14 md:w-28 md:h-28 lg:w-36 lg:h-36 2xl:w-52 2xl:h-52'
+                placeholder="blur"
             />
             <blockquote>
                 <p className="text-white text-sm row-start-1 col-start-2 mb-4">

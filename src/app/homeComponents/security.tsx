@@ -1,3 +1,4 @@
+import { image, text, title } from "@/mocks/home/security";
 import Image from "next/image";
 
 const Security = () => {
@@ -6,17 +7,18 @@ const Security = () => {
             className="w-full flex flex-col gap-12 px-[5%] items-center"
         >
             <Image 
-                src={""}
-                alt={""}
-                width={1200}
-                height={800}
+                src={image.src}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                placeholder="blur"
             />
             <div className="flex flex-col gap-12 items-center">
                 <h2 className="text-center text-white">
-                    {"Travel with more security"}
+                    {title}
                 </h2>
                 <p className="text-center text-white">
-                    {"earwklhpowi weioeprwoi doisfwpeoi sidfopweio saklfhpewoi sdçiofypwei dfaçihwpheio dsafklhwpioe sad~fowpoei dsaçfaiowpyiwe saiodfwpi sadiofwepiew klfdfhpiowe dsaçiofywepio daklshpweio dsifhpiwue sdaçiofwepihewp dafhiasdhiwepu"}
+                    {text}
                 </p>
             </div>
         </section>

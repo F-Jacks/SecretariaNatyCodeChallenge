@@ -1,11 +1,13 @@
+import { text, title } from "@/mocks/home/apresentation";
+
 const About = () => {
     return (
         <div className="w-full max-w-5xl row-start-2 flex flex-col justify-between">
             <h1 className="text-6xl text-center text-white">
-                {"QuickRide"}
+                {title}
             </h1>
             <p className="text-sm text-white">
-                {"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt elit ac sapien iaculis aliquam. Quisque semper, urna vitae malesuada gravida, sapien odio efficitur orci, non facilisis justo nisi nec felis. Donec vel eros semper, auctor ex a, molestie leo. Mauris venenatis est ac lorem dictum, id placerat purus gravida. Phasellus et iaculis enim. Fusce efficitur orci sed felis vulputate lobortis. Nulla efficitur nisi vel erat euismod, id tempor lectus pulvinar."}
+                {text}
             </p>
         </div>
     );
