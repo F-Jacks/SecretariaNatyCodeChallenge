@@ -6,6 +6,6 @@ export const text = 'jkfweghq çkdlfhiowe çiofwey dçklfh oidw isydpfiowe diosy
 export const image = {
     src: Image,
     alt: "",
-    width: 594,
-    height: 807
+    width: 807,
+    height: 594
 }

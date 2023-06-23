@@ -9,7 +9,7 @@ const VideoPlayer = dynamic(() => import("./homeComponents/videoPlayer"));
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col gap-y-[8rem] w-full">
+    <>
       <Apresentation />
       <Comfort />
       <Security />
@@ -17,6 +17,6 @@ export default function Home() {
       <Reviews />
       <Price />
       <VideoPlayer />
-    </main>
+    </>
   )
 }
