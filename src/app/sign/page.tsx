@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import LinkButton from '../components/linkButton';
-import { Input } from '@mui/material';
+import Input from '../components/input';
 
 const Sign = () => {
     return (
@@ -31,7 +31,6 @@ const Sign = () => {
             <section>
                 <Input 
                     name="id"
-                    value="test"
                 />
             </section>
         </>
