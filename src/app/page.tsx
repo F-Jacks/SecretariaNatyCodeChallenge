@@ -1,6 +1,7 @@
 import Apresentation from "./homeComponents/apresentation"; 
 import Comfort from "./homeComponents/comfort";
 import ForWho from "./homeComponents/forWho";
+import Reviews from "./homeComponents/reviews";
 import Security from "./homeComponents/security";
 
 export default function Home() {
