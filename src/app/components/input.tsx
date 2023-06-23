@@ -21,6 +21,7 @@ const Input = (props: Props) => {
                 // }}
                 type={props.type}
                 placeholder={props.placeholder}
+                fullWidth
             />
         </div>
     );

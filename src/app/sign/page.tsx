@@ -2,14 +2,7 @@ import Image from 'next/image';
 import LinkButton from '../components/linkButton';
 import { Input } from '@mui/material';
 
-interface Props {
-    paramas: {
-        type: string
-    }
-}
-
-
-const Sign = (props: Props) => {
+const Sign = () => {
     return (
         <>
             <section className="min-h-[35rem] w-full mt-[calc(3.25rem-2px)] grow relative grid grid-cols-[4px_1fr_25%] grid-row-[1fr_auto_auto] gap-4 justify-items-end items-center">
