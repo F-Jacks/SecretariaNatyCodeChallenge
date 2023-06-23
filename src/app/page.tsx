@@ -1,6 +1,7 @@
 import Apresentation from "./homeComponents/apresentation"; 
 import Comfort from "./homeComponents/comfort";
 import ForWho from "./homeComponents/forWho";
+import Price from "./homeComponents/price";
 import Reviews from "./homeComponents/reviews";
 import Security from "./homeComponents/security";
 
@@ -12,6 +13,8 @@ export default function Home() {
       <Security />
       <ForWho />
       <Reviews />
+      <Price />
+      <VideoPlayer />
     </main>
   )
 }
