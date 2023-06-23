@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import LinkButton from '../components/linkButton';
+import { Input } from '@mui/material';
 
 interface Props {
     paramas: {
@@ -33,6 +34,12 @@ const Sign = (props: Props) => {
                 <LinkButton href={'/'} isFilled>
                     {""}
                 </LinkButton>
+            </section>
+            <section>
+                <Input 
+                    name="id"
+                    value="test"
+                />
             </section>
         </>
     );
