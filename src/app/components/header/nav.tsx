@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react';
 import { Drawer, List, ListItem, ListItemIcon, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';

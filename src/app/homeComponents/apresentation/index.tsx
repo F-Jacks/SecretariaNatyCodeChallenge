@@ -6,7 +6,7 @@ import Links from "./links";
 
 const Apresentation = () => {
     return (
-        <section className="h-[85vh] min-h-[55rem] w-full pt-[3.25rem] pb-4 px-[5%] relative border-b-2 grid grid-rows-[1fr_2fr_15%_15%] gap-y-8 justify-items-center z-0 items-center">
+        <section className="h-[85vh] min-h-[65rem] lt:min-h-[50rem] w-full pt-[3.25rem] pb-4 px-[5%] relative border-b-2 grid grid-rows-[1fr_2fr_15%_15%] gap-y-8 justify-items-center z-0 items-center">
             <Background />
             <About />
             <Links />

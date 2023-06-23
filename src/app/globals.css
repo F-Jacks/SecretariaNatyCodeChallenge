@@ -19,10 +19,17 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: black;
+  /* width: 100vw;
+  overflow-x: hidden; */
+  margin:0;
 }
 
 a {
   cursor: pointer
+}
+
+* {
+  word-break: break-word;
 }
 /* 
  NORMALIZE
