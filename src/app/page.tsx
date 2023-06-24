@@ -7,6 +7,13 @@ const Reviews = dynamic(() => import("./homeComponents/reviews"));
 const Security = dynamic(() => import("./homeComponents/security"));
 const VideoPlayer = dynamic(() => import("./homeComponents/videoPlayer"));
 
+
+export const metadata = {
+  title: 'Desloc',
+  description: 'Desloc Proj',
+  viewport: 'width=device-width, initial-scale=1'
+}
+
 export default function Home() {
   return (
     <>
