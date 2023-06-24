@@ -3,7 +3,7 @@
 
 import { continueReadingIcon, continueReadingText } from "@/mocks/home/apresentation";
 import startRidingFloatLinkAtom from "@/states/startRidingFloatLink";
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useSetRecoilState } from "recoil";
 
 const ContinueReading = () => {
@@ -11,7 +11,7 @@ const ContinueReading = () => {
     const setStartRidingFloatLink = useSetRecoilState(startRidingFloatLinkAtom);
     const [isBottom, setIsBottom] = useState(false);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting && isBottom) {

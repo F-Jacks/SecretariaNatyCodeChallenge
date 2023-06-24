@@ -3,52 +3,55 @@
 
 import { amount, text, title, link } from "@/mocks/home/price";
 import LinkButton from "../components/linkButton";
-import { useEffect, useRef, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useLayoutEffect, useRef, useState } from "react";
+import { useRecoilState } from "recoil";
 import startRidingFloatLinkAtom from "@/states/startRidingFloatLink";
 
 
 const Price = () => {
     const componenteRef = useRef<HTMLDivElement>(null);
-    const setStartRidingFloatLink = useSetRecoilState(startRidingFloatLinkAtom);
+    const [startRidingFloatLink, setStartRidingFloatLink] = useRecoilState(startRidingFloatLinkAtom);
     const [isBottom, setIsBottom] = useState(false);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
+    useLayoutEffect(() => {
+      let isComponentUnmounted = false; // Variável de controle
+    
+      const observer = new IntersectionObserver((entries) => {
+        if (!isComponentUnmounted && startRidingFloatLink.start) {
           entries.forEach((entry) => {
             if (!entry.isIntersecting && !isBottom) {
-              setStartRidingFloatLink({
-                start: true,
+              setStartRidingFloatLink((prevStartRidingFloatLink) => ({
+                ...prevStartRidingFloatLink,
                 end: false
-              });
-              console.log("t");
+              }));
             } else {
-              setStartRidingFloatLink({
-                start: true,
+              setStartRidingFloatLink((prevStartRidingFloatLink) => ({
+                ...prevStartRidingFloatLink,
                 end: true
-              });
-              console.log("f");
+              }));
             }
           });
-        });
-      
-        const handleScroll = () => {
-          if (componenteRef.current) {
-            const componentePosicao = componenteRef.current.getBoundingClientRect().bottom;
-            setIsBottom(componentePosicao <= 0);
-          }
-        };
-      
-        if (componenteRef.current) {
-          observer.observe(componenteRef.current);
-          window.addEventListener('scroll', handleScroll);
         }
-      
-        return () => {
-          window.removeEventListener('scroll', handleScroll);
-          observer.disconnect();
-        };
-    }, [isBottom]);
+      });
+    
+      const handleScroll = () => {
+        if (!isComponentUnmounted && componenteRef.current) {
+          const componentePosicao = componenteRef.current.getBoundingClientRect().bottom;
+          setIsBottom(componentePosicao <= 0);
+        }
+      };
+    
+      if (componenteRef.current) {
+        observer.observe(componenteRef.current);
+        window.addEventListener('scroll', handleScroll);
+      }
+    
+      return () => {
+        isComponentUnmounted = true; // Marcar o componente como desmontado
+        window.removeEventListener('scroll', handleScroll);
+        observer.disconnect();
+      };
+    }, [isBottom, startRidingFloatLink]);
 
     return (
         <section 

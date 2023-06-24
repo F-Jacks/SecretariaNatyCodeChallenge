@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import LinkButton from '../components/linkButton';
 import Input from '../components/input';
+import { SetStateAction } from 'react';
 
 const Sign = () => {
     return (
@@ -27,11 +28,6 @@ const Sign = () => {
                 <LinkButton href={'/'} isFilled>
                     {""}
                 </LinkButton>
-            </section>
-            <section>
-                <Input 
-                    name="id"
-                />
             </section>
         </>
     );
