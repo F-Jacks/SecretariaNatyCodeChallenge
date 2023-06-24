@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Apresentation from "./homeComponents/apresentation"; 
 import Comfort from "./homeComponents/comfort";
+import StartRidingFloatLink from "./homeComponents/startRidingFloatLink";
 const ForWho = dynamic(() => import("./homeComponents/forWho"));
 const Price = dynamic(() => import("./homeComponents/price"));
 const Reviews = dynamic(() => import("./homeComponents/reviews"));
@@ -24,6 +25,7 @@ export default function Home() {
       <Reviews />
       <Price />
       <VideoPlayer />
+      <StartRidingFloatLink />
     </>
   )
 }

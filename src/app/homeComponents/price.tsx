@@ -19,13 +19,13 @@ const Price = () => {
             if (!entry.isIntersecting && !isBottom) {
               setStartRidingFloatLink({
                 start: true,
-                end: true
+                end: false
               });
               console.log("t");
             } else {
               setStartRidingFloatLink({
                 start: true,
-                end: false
+                end: true
               });
               console.log("f");
             }
