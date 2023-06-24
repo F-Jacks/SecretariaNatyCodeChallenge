@@ -18,7 +18,6 @@ const StartRidingFloatLink = () => {
 
       const handleScroll = () => {
         const onBottom = bottomElement.getBoundingClientRect().top - window.innerHeight;
-        console.log(onBottom, topElement.getBoundingClientRect().bottom);
         setActive(topElement.getBoundingClientRect().bottom <= 0 && onBottom > 0);
       };
 
