@@ -1,5 +1,6 @@
 import { amount, text, title, link } from "@/mocks/home/price";
 import LinkButton from "../components/linkButton";
+import { clientLink } from "@/mocks/home/apresentation";
 
 
 const Price = () => {
@@ -21,10 +22,10 @@ const Price = () => {
                     {title}
                 </h2>
                 <LinkButton
-                    href={link.href}
+                    href={clientLink.link}
                     isFilled
                 >
-                    {link.text}
+                    {link}
                 </LinkButton>
             </div>
         </section>
