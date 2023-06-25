@@ -4,12 +4,9 @@ import { useState } from "react";
 import Input from "../components/input";
 import axios from "axios";
 import classNames from "classnames";
-import { IInputForm, TFormValues } from "@/types/form";
+import { IForm, TFormValues } from "@/types/form";
 
-interface Props {
-    inputs: IInputForm[],
-    url: string,
-    method: 'get' | 'post' | 'put' | 'delete',
+interface Props extends IForm {
     callbackSucess: (data: {}) => void,
     callbackError: () => void,
     className?: string
