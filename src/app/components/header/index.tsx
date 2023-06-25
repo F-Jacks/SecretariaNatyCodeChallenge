@@ -10,9 +10,6 @@ import Links from './links';
 import UserMenu from './userMenu';
 
 
-const pages = ['products', 'pricing', 'blog'];
-const settings = ['account', 'ride', 'logout'];
-
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -53,7 +50,6 @@ function ResponsiveAppBar() {
             <LogoMobile />
 
             <Links
-              pages={pages}
               handleCloseNavMenu={handleCloseNavMenu}
             />
 
@@ -61,7 +57,6 @@ function ResponsiveAppBar() {
               anchorElUser={anchorElUser}
               handleOpenUserMenu={handleOpenUserMenu}
               handleCloseUserMenu={handleCloseUserMenu}
-              settings={settings}
             />
           </Toolbar>
         </Container>
@@ -69,7 +64,6 @@ function ResponsiveAppBar() {
       <SideMenu 
         open={anchorElNav !== null && anchorElNav !== undefined}
         setOpen={setAnchorElNav}
-        pages={pages}
         handleCloseNavMenu={handleCloseNavMenu}
       />
     </>

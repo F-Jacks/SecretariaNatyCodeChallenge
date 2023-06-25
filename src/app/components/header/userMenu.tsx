@@ -9,25 +9,30 @@ import Menu from '@mui/material/Menu';
 import Box from '@mui/material/Box';
 import userAtom from '@/states/user';
 import { useRecoilState } from 'recoil';
-
-import riderIcon from '/public/imgs/riderIcon.png';
-import driverIcon from '/public/imgs/driverIcon.png';
 import { useEffect, useLayoutEffect } from 'react';
-
 import { CookiesProvider, useCookies } from 'react-cookie';
+import { driverIconSrc, loginIconSrc, riderIconSrc, userLinks } from '@/mocks/header';
 
 
 interface Props {
     handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => void,
     anchorElUser: HTMLElement | null,
     handleCloseUserMenu: (event: React.MouseEvent<HTMLElement>) => void,
-    settings: string[],
 }
 
 
 const UserMenu = (props: Props) => {
     const [user, setUser] = useRecoilState(userAtom);
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
+    let avatar = {
+        alt: user ? user.type : 'user',
+        src: user ? 
+            user.type === "driver" ? 
+                driverIconSrc : 
+                riderIconSrc
+            :
+            loginIconSrc
+    }
 
     useEffect(() => {
         if (user) {
@@ -51,15 +56,12 @@ const UserMenu = (props: Props) => {
                     onClick={props.handleOpenUserMenu} 
                     sx={{ p: 0}}
                 >
-                    {user ? (
-                        <Avatar
-                            alt={user.type}
-                            src={user.type === "driver" ? driverIcon.src : riderIcon.src}
-                            sx={{ bgcolor: 'white' }}
-                        />
-                    ) : (
-                        <></>
-                    )}
+                    <Avatar
+                        alt={`${avatar.alt} interface`}
+                        src={avatar.src}
+                        sx={{ bgcolor: 'white' }}
+                        className='cursor-pointer'
+                    />
                 </IconButton>
                 </Tooltip>
                 <Menu
@@ -85,14 +87,14 @@ const UserMenu = (props: Props) => {
                         },
                     }}
                 >
-                {props.settings.map((setting) => (
-                    <MenuItem 
-                    key={setting} 
-                    onClick={props.handleCloseUserMenu}
-                    color='white'
+                {userLinks[user ? 'full' : 'empty'].map((link, index) => (
+                    <MenuItem
+                        key={index} 
+                        onClick={props.handleCloseUserMenu}
+                        color='white'
                     >
-                    <Link href={`/${setting}`} className='text-white hover:bg-[rgba(255,255,255,.3)] w-full p-1'>
-                        {setting}
+                    <Link href={`/${link}`} className='text-white hover:bg-[rgba(255,255,255,.3)] w-full p-1'>
+                        {link}
                     </Link>
                     </MenuItem>
                 ))}

@@ -1,8 +1,8 @@
+import { menuLinks } from '@/mocks/header';
 import Box from '@mui/material/Box';
 import Link from "next/link";
 
 interface Props {
-    pages: string[],
     handleCloseNavMenu: (event: React.MouseEvent<HTMLElement>) => void,
 }
 
@@ -10,15 +10,15 @@ interface Props {
 const Links = (props: Props) => {
     return (
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {props.pages.map((page) => (
-            <Link
-                key={page}
-                onClick={props.handleCloseNavMenu}
-                href={`/${page}`}
-                className='text-base text-white mx-2' 
-            >
-                {page}
-            </Link>
+            {menuLinks.map((link, index) => (
+                <Link
+                    key={index}
+                    onClick={props.handleCloseNavMenu}
+                    href={`/${link}`}
+                    className='text-base text-white mx-2' 
+                >
+                    {link}
+                </Link>
             ))}
         </Box>
     );

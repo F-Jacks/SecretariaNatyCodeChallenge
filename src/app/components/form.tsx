@@ -5,6 +5,7 @@ import Input from "../components/input";
 import axios from "axios";
 import classNames from "classnames";
 import { IForm, TFormValues } from "@/types/form";
+import { errorMessage } from "@/mocks/form";
 
 interface Props extends IForm {
     callbackSucess: (data: TFormValues) => void,
@@ -19,6 +20,7 @@ interface Props extends IForm {
 const Form = (props: Props) => {
     const [formValues, setFormValues] = useState<TFormValues>({});
     const [canSend, setCanSend] = useState(true);
+    const [error, setError] = useState(false);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -28,6 +30,7 @@ const Form = (props: Props) => {
           ...prevData,
           [`${inputType ? inputType : 'body'}__${name}`]: value.toString()
         }});
+        setError(false)
     };
 
     const fillFormData = (type: "body" | "query" | "param" | "header", data: { [key: string]: string }, formValuesTuple: [string, string][]) => {
@@ -38,6 +41,11 @@ const Form = (props: Props) => {
             data[trueVal] = val;
           }
         })
+    }
+
+    const handleError = () => {
+        setError(true);
+        props.callbackError();
     }
 
     const send = (e: React.FormEvent) => {
@@ -73,10 +81,10 @@ const Form = (props: Props) => {
             if (res.status === 200) {
                 props.callbackSucess(res.data);
             } else {
-                props.callbackError();
+                handleError();
             }
         }).catch((_) => {
-            props.callbackError();
+            handleError();
         }).finally(() => {
             setCanSend(true);
         });
@@ -90,6 +98,13 @@ const Form = (props: Props) => {
                 [props.className || 'flex flex-col gap-y-6']: true
             })}
         >
+            <span className={classNames({
+                ['bg-red-700 text-white text-base text-center bottom-0 fixed p-2 w-full left-0 transform transition-transform duration-250']: true,
+                ['translate-y-[100%]']: !error,
+                ['translate-y-0']: error
+            })}>
+                {errorMessage}
+            </span>
             {
                 props.inputs.map((inp, idx) => (
                     <Input
@@ -98,6 +113,7 @@ const Form = (props: Props) => {
                         value={formValues[inp.name]}
                         {...inp}
                         active={!canSend || !props.active === false}
+                        error={error}
                     />
                 ))
             }

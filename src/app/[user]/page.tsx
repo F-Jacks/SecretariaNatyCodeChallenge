@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import LinkButton from '../../components/linkButton';
-import { image, login, register, text, title } from '@/mocks/sign';
+import LinkButton from '../components/linkButton';
+import { image, login, register, text, title } from '@/mocks/home/sign';
 
 
 interface Props {

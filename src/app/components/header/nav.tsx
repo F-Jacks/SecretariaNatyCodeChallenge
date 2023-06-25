@@ -4,11 +4,11 @@ import React, { useRef } from 'react';
 import { Drawer, List, ListItem, IconButton } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Link from 'next/link';
+import { menuLinks } from '@/mocks/header';
 
 interface Props {
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<HTMLElement | null>>,
-  pages: string[],
   handleCloseNavMenu: (event: React.MouseEvent<HTMLElement>) => void,
 }
 
@@ -46,14 +46,14 @@ const SideMenu = (props: Props) => {
           </IconButton>
           <List>
             {
-              props.pages.map((pg, index) => (
+              menuLinks.map((link, index) => (
                 <ListItem key={index}>
                     <Link 
                       className='flex items-center w-full text-base text-white' 
-                      href={`/${pg}`}
+                      href={`/${link}`}
                       onClick={props.handleCloseNavMenu}
                     >
-                        {pg}
+                        {link}
                     </Link>
                 </ListItem>
               ))

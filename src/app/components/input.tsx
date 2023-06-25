@@ -4,7 +4,8 @@ import TextField from '@mui/material/TextField';
 interface Props extends IInput {
     setValue: ((e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void),
     value: string | number | Date,
-    active?: boolean
+    active?: boolean,
+    error: boolean
 }
 
 
@@ -21,6 +22,7 @@ const Input = (props: Props) => {
                 fullWidth
                 variant="filled"
                 disabled={props.active}
+                error={props.error}
                 sx={{
                     bgcolor: 'rgba(255, 255, 255, 0.15)',
                     "& .MuiFilledInput-root": {
