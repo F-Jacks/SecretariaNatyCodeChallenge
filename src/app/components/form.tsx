@@ -36,7 +36,7 @@ const Form = (props: Props) => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormValues((prevData) => {
-            const inputType = props.inputs.find(inp => inp.name === name)?.type;
+            const inputType = props.inputs.find(inp => inp.name === name)?.apiType;
           return {
           ...prevData,
           [`${inputType ? inputType : 'body'}__${name}`]: value.toString()
@@ -44,13 +44,13 @@ const Form = (props: Props) => {
     };
 
     const fillFormData = (type: "body" | "query" | "param" | "header", data: { [key: string]: string }, formValuesTuple: [string, string][]) => {
-        for (const [key, val] of formValuesTuple) {
-            const [trueVal, typeVal] = val.split("__");
-
+        formValuesTuple.forEach(([key, val]) => {
+          const [typeVal, trueVal] = key.split("__");;
+        
           if (typeVal === type) {
-            data[key] = trueVal;
+            data[trueVal] = val;
           }
-        }
+        })
     }
 
     const send = (e: React.FormEvent) => {
@@ -62,16 +62,27 @@ const Form = (props: Props) => {
 
         const formValuesTuple: [string, string][] = Object.entries(formValues);
         const body: { [key: string]: string } = {};
-        fillFormData()
+        fillFormData("body", body, formValuesTuple);
         const query: { [key: string]: string } = {};
+        fillFormData("query", query, formValuesTuple);
         const param: { [key: string]: string } = {};
+        fillFormData("param", param, formValuesTuple);
         const header: { [key: string]: string } = {};
+        fillFormData("header", header, formValuesTuple);
 
-        axios({
+        const paramString = Object.values(param).join('/');
+        const queryString = Object.entries(query)
+            .map(([key, value]) => `${key}=${value}`)
+            .join('&&');
+
+        const atrs = {
             method: props.method,
-            url: props.url,
-            data: formValues,
-        }).then((res) => {
+            url: `${props.url}/${paramString && paramString+'/'}${queryString && '?'+queryString+'/'}`,
+            data: body,
+            headers: header
+        };
+
+        axios(atrs).then((res) => {
             if (res.status === 200) {
                 props.callbackSucess(res.data);
             } else {

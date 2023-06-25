@@ -14,13 +14,14 @@ const SignRedirect = ({params}: Props) => {
             </section>
             <section>
                 <Form 
-                    url={"https://api-deslocamento.herokuapp.com/api/v1/Cliente/"}
-                    inputs={[]}
-                    method={"get"} callbackSucess={function (data: object): void {
-                        throw new Error("Function not implemented.");
-                    } } callbackError={function (): void {
-                        throw new Error("Function not implemented.");
-                    } }                />
+                    url={"https://api-deslocamento.herokuapp.com/api/v1/Cliente"}
+                    inputs={[
+                        {name: "id", type: "number", apiType: "param"},
+                        {name: "name", type: "text"},
+                        {name: "id2", type: "number", apiType: "query"},
+                    ]}
+                    method={"get"}             
+                    />
             </section>
         </>
     );
