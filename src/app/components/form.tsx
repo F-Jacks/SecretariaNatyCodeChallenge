@@ -7,11 +7,12 @@ import classNames from "classnames";
 import { IForm, TFormValues } from "@/types/form";
 
 interface Props extends IForm {
-    callbackSucess: (data: {}) => void,
+    callbackSucess: (data: TFormValues) => void,
     callbackError: () => void,
     className?: string,
     children?: React.ReactNode,
-    active?: boolean
+    active?: boolean,
+    submitText: string
 }
 
 
@@ -103,7 +104,7 @@ const Form = (props: Props) => {
             { props.children }
             <input 
                 type="submit" 
-                value="login"
+                value={props.submitText}
                 className="border-[#0076E3] bg-[#0076E3] cursor-pointer p-2 text-base h-10 min-w-[10rem] w-full mx-auto flex justify-center items-center border-2"
             />
         </form>

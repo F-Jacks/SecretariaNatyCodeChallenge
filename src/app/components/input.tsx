@@ -36,9 +36,6 @@ const Input = (props: Props) => {
                     "& .MuiInputLabel-root": {
                         color: 'white',
                     },
-                    // "& .Mui-disabled .MuiFilledInput-root": {
-                    //     backgroundColor: 'white',
-                    // },
                 }}
                 onChange={props.setValue}
             />

@@ -2,19 +2,31 @@
 
 import { form } from "@/mocks/login";
 import Form from "../../components/form";
+import { useSetRecoilState } from "recoil";
+import userAtom from "@/states/user";
+import { TFormValues } from "@/types/form";
+
+
+export const errorLogin = () => {
+    console.log('error login');
+}
 
 
 interface Props {
     user: 'driver' | 'rider'
 }
 
-const LoginForm = (props: Props) => {
-    const sucessLogin = (data: {}) => {
-        console.log(data)
-    }
 
-    const errorLogin = () => {
-        console.log('error')
+const LoginForm = (props: Props) => {
+    const setUser = useSetRecoilState(userAtom);
+
+    const sucessLogin = (data: TFormValues) => {
+        const newUser = {
+            id: parseInt(data['id']),
+            nome: data['nome'],
+            type: props.user
+        };
+        setUser(newUser);
     }
 
     return (
@@ -25,6 +37,7 @@ const LoginForm = (props: Props) => {
                 method={form[props.user].method}
                 callbackSucess={sucessLogin}
                 callbackError={errorLogin}
+                submitText="login"
             />
         </section>
     );

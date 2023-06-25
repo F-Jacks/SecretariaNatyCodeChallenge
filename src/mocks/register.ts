@@ -19,14 +19,24 @@ export const form: TFormConst = {
         url: 'https://api-deslocamento.herokuapp.com/api/v1/Cliente',
         method: 'post',
         inputs: [
-            { name: "id", type: "number"},
+            { name: "numeroDocumento", type : "text"},
+            { name: "tipoDocumento", type : "text"},
+            { name: "nome", type : "text"},
+            { name: "logradouro", type : "text"},
+            { name: "numero", type : "text"},
+            { name: "bairro", type : "text"},
+            { name: "cidade", type : "text"},
+            { name: "uf", type : "text"}
         ]
     },
     'driver': {
         url: 'https://api-deslocamento.herokuapp.com/api/v1/Condutor',
         method: 'post',
         inputs: [
-            { name: "id", type: "number"},
+            {name: "nome", type: "text"},
+            {name: "numeroHabilitacao", type: "text"},
+            {name:"categoriaHabilitacao", type: "text"},
+            {name: "vencimentoHabilitacao", type: 'date'}
         ]
     }
 }
