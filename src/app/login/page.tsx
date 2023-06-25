@@ -1,4 +1,4 @@
-import Form from "../components/form";
+import LoginForm from "./loginForm";
 
 interface Props {
     params: {
@@ -12,17 +12,7 @@ const SignRedirect = ({params}: Props) => {
         <>
             <section>
             </section>
-            <section>
-                <Form 
-                    url={"https://api-deslocamento.herokuapp.com/api/v1/Cliente"}
-                    inputs={[
-                        {name: "id", type: "number", apiType: "param"},
-                        {name: "name", type: "text"},
-                        {name: "id2", type: "number", apiType: "query"},
-                    ]}
-                    method={"get"}             
-                    />
-            </section>
+            <LoginForm />
         </>
     );
 };

@@ -1,31 +1,18 @@
 "use client"
 
-
 import { useState } from "react";
 import Input from "../components/input";
 import axios from "axios";
-
-export type TFormValues = {
-    [key: string]: string;
-};
-
-export interface IInput {
-    type: "text" | "password" | "email" | "date" | "number" | "tel",
-    name: string,
-    className?: string,
-    placeholder?: string
-};
-
-interface IInputForm extends IInput {
-    apiType?: "body" | "query" | "param" | "header"
-}
+import classNames from "classnames";
+import { IInputForm, TFormValues } from "@/types/form";
 
 interface Props {
     inputs: IInputForm[],
     url: string,
     method: 'get' | 'post' | 'put' | 'delete',
-    callbackSucess: (data: object) => void,
-    callbackError: () => void
+    callbackSucess: (data: {}) => void,
+    callbackError: () => void,
+    className?: string
 }
 
 
@@ -96,7 +83,13 @@ const Form = (props: Props) => {
     }
 
     return (
-        <form onSubmit={send}>
+        <form 
+            onSubmit={send}
+            className={classNames({
+                ['h-fit w-full']: true,
+                [props.className || 'flex flex-col gap-y-6']: true
+            })}
+        >
             {
                 props.inputs.map((inp, idx) => (
                     <Input

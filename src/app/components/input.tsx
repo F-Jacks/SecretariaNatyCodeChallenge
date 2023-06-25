@@ -1,7 +1,5 @@
-"use client"
-
+import { IInput } from '@/types/form';
 import TextField from '@mui/material/TextField';
-import { IInput } from './form';
 
 interface Props extends IInput {
     setValue: ((e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void),
@@ -13,28 +11,32 @@ const Input = (props: Props) => {
     return (
         <div className={props.className}>
             <TextField
-                name={props.name}
-                id={props.name}
-                label={props.name}
-                value={props.value}
-                type={props.type}
-                placeholder={props.placeholder}
-                fullWidth
-                variant="filled"
-                sx={{
-                    "& .MuiFilledInput-root": {
-                    borderColor: 'white',
-                    color: 'white',
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    },
-                    "& .MuiFilledInput-underline:before": {
-                    borderBottomColor: 'white',
-                    },
-                    "& .MuiInputLabel-root": {
-                    color: 'white',
-                    },
-                }}
-                onChange={props.setValue}
+            name={props.name}
+            id={props.name}
+            label={props.name}
+            value={props.value}
+            type={props.type}
+            placeholder={props.placeholder}
+            fullWidth
+            variant="filled"
+            autoComplete="off"
+            sx={{
+                "& .MuiFilledInput-root": {
+                borderColor: 'white',
+                color: 'white',
+                backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                },
+                "& .MuiFilledInput-root:hover": {
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                },
+                "& .MuiFilledInput-underline:before": {
+                borderBottomColor: 'white',
+                },
+                "& .MuiInputLabel-root": {
+                color: 'white',
+                },
+            }}
+            onChange={props.setValue}
             />
         </div>
     );
