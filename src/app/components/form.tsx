@@ -9,7 +9,9 @@ import { IForm, TFormValues } from "@/types/form";
 interface Props extends IForm {
     callbackSucess: (data: {}) => void,
     callbackError: () => void,
-    className?: string
+    className?: string,
+    children?: React.ReactNode,
+    active?: boolean
 }
 
 
@@ -40,7 +42,7 @@ const Form = (props: Props) => {
     const send = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if(!canSend) return;
+        if(!canSend || !props.active === false) return;
 
         setCanSend(false);
 
@@ -94,9 +96,11 @@ const Form = (props: Props) => {
                         setValue={handleInputChange}
                         value={formValues[inp.name]}
                         {...inp}
+                        active={!canSend || !props.active === false}
                     />
                 ))
             }
+            { props.children }
             <input 
                 type="submit" 
                 value="login"

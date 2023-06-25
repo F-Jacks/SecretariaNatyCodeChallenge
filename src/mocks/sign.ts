@@ -10,22 +10,22 @@ export const text = {
 
 export const register = {
     'rider': {
-        link: '/',
-        text: 'regiter'
+        link: '/register/rider',
+        text: 'register'
     },
     'driver': {
-        link: '/',
-        text: 'regiter'
+        link: '/register/driver',
+        text: 'register'
     }
 };
 
 export const login = {
     'rider': {
-        link: '/',
+        link: '/login/rider',
         text: 'login'
     },
     'driver': {
-        link: '/',
+        link: '/login/driver',
         text: 'login'
     }
 };

@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { image, title } from "@/mocks/login";
-import LoginForm from "./loginForm";
+import RegisterForm from './registerForm';
+import { image, title } from '@/mocks/register';
 
 interface Props {
     params: {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 
-const Login = ({params}: Props) => {
+const Register = ({params}: Props) => {
     return (
         <div className="mx-auto px-[5%] grow w-full mt-[60px] ltmd:mt-[68px] flex flex-col justify-center gap-y-12">
             <section>
@@ -27,7 +27,7 @@ const Login = ({params}: Props) => {
                     />
                 </div>
             </section>
-            <LoginForm 
+            <RegisterForm 
                 user={params.user}
             />
         </div>
@@ -35,4 +35,4 @@ const Login = ({params}: Props) => {
 };
 
 
-export default Login;
+export default Register;
