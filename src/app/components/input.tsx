@@ -1,14 +1,11 @@
 "use client"
 
 import TextField from '@mui/material/TextField';
+import { IInput } from './form';
 
-interface Props {
-    className?: string,
-    name: string,
-    value: string | number | Date,
-    setValue: React.Dispatch<React.SetStateAction<string | number | Date>>,
-    type?: "text" | "password" | "email" | "date" | "number" | "tel",
-    placeholder?: string
+interface Props extends IInput {
+    setValue: ((e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void),
+    value: string | number | Date
 }
 
 
@@ -16,6 +13,7 @@ const Input = (props: Props) => {
     return (
         <div className={props.className}>
             <TextField
+                name={props.name}
                 id={props.name}
                 label={props.name}
                 value={props.value}
@@ -36,7 +34,7 @@ const Input = (props: Props) => {
                     color: 'white',
                     },
                 }}
-                onChange={(event) => props.setValue(event.target.value)}
+                onChange={props.setValue}
             />
         </div>
     );
