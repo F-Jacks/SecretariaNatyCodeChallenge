@@ -2,6 +2,7 @@ import Image from 'next/image';
 import LinkButton from '../components/linkButton';
 import { image, login, register, text, title } from '@/mocks/home/sign';
 import { TUserType } from '@/types/user';
+import HomeRedirectorUser from '@/middlewares/homeRedirector';
 
 
 interface Props {
@@ -11,8 +12,6 @@ interface Props {
 }
 
 const Sign = ({params}: Props) => {
-    console.log(params);
-
     return (
         <>
             <section className="min-h-[35rem] w-full mt-[60px] ltmd:mt-[68px] grow relative grid grid-cols-[4px_1fr_25%] grid-row-[1fr_auto_auto] gap-4 justify-items-end items-center">
@@ -41,6 +40,7 @@ const Sign = ({params}: Props) => {
                     {login[params.user].text}
                 </LinkButton>
             </section>
+            <HomeRedirectorUser />
         </>
     );
 };

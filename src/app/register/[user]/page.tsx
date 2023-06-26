@@ -2,6 +2,7 @@ import Image from 'next/image';
 import RegisterForm from './registerForm';
 import { image, title } from '@/mocks/register';
 import { TUserType } from '@/types/user';
+import HomeRedirectorUser from '@/middlewares/homeRedirector';
 
 interface Props {
     params: {
@@ -31,6 +32,7 @@ const Register = ({params}: Props) => {
             <RegisterForm 
                 user={params.user}
             />
+            <HomeRedirectorUser />
         </div>
     );
 };

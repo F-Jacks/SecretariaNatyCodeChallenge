@@ -11,8 +11,9 @@ import userAtom from '@/states/user';
 import { useRecoilState } from 'recoil';
 import { useEffect, useLayoutEffect } from 'react';
 import { CookiesProvider, useCookies } from 'react-cookie';
-import { driverIconSrc, loginIconSrc, riderIconSrc, userLinks } from '@/mocks/header';
+import { userLinks } from '@/mocks/header';
 import headerLoadedAtom from '@/states/header';
+import { driverIconSrc, loginIconSrc, riderIconSrc } from '@/mocks/user';
 
 
 interface Props {

@@ -1,6 +1,5 @@
-import { amount, text, title, link } from "@/mocks/home/price";
-import LinkButton from "../components/linkButton";
-import { clientLink } from "@/mocks/home/apresentation";
+import { amount, text, title } from "@/mocks/home/price";
+import Link from "./link";
 
 
 const Price = () => {
@@ -21,12 +20,7 @@ const Price = () => {
                 <h2 className="text-xl w-full text-center mb-12">
                     {title}
                 </h2>
-                <LinkButton
-                    href={clientLink.link}
-                    isFilled
-                >
-                    {link}
-                </LinkButton>
+                <Link />
             </div>
         </section>
     );

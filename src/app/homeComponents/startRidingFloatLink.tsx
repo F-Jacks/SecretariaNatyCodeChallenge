@@ -3,12 +3,20 @@
 import LinkButton from "../components/linkButton";
 import { clientLink } from "@/mocks/home/apresentation";
 import { title } from "@/mocks/home/price";
+import { runLink } from "@/mocks/user";
+import userAtom from "@/states/user";
 import classNames from "classnames";
 import { useLayoutEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 
 
 const StartRidingFloatLink = () => {
+    const user = useRecoilValue(userAtom);
     const [active, setActive] = useState(false);
+    let link = {
+        href: user ? runLink[user.type].link : clientLink.link,
+        text: user ? runLink[user.type].text : title
+    }
 
     useLayoutEffect(() => {
       const bottomElement = document.getElementById("priceSection");
@@ -34,8 +42,8 @@ const StartRidingFloatLink = () => {
         ["translate-y-0"]: active,
         ["translate-y-[100%]"]: !active
       })}>
-        <LinkButton href={clientLink.link} className="w-full" isFilled>
-          {title} 
+        <LinkButton href={link.href} className="w-full" isFilled>
+          { link.text } 
         </LinkButton>
       </div>
     );

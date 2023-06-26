@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { TDictTuple } from "@/types/common";
 import { TUser } from '@/types/user';
-import { riderIconSrc, loginIconSrc, driverIconSrc } from '@/mocks/header';
+import { riderIconSrc, loginIconSrc, driverIconSrc } from '@/mocks/user';
 
 interface Props {
     fixedInfos: TDictTuple,
