@@ -39,13 +39,18 @@ const Form = (props: Props) => {
     const [error, setError] = useState(false);
 
 
+    const makeIndex = (inputType: string | undefined, name: string) => (
+        `${inputType ? inputType : 'body'}__${name}`
+    );
+
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
 
         setFormValues((old) => {
           const inputType = props.inputs.find(inp => inp.name === name)?.apiType;
 
-          const index = `${inputType ? inputType : 'body'}__${name}`;
+          const index = makeIndex(inputType, name);
 
           return {
             ...old,
@@ -69,50 +74,51 @@ const Form = (props: Props) => {
         setError(true);
         props.callbackError();
     }
-    
-    const _makeAtrs = () => {
-        const formValuesTuple: TDictTuple = Object.entries(formValues);
-        const body: { [key: string]: string } = {};
-        fillFormData("body", body, formValuesTuple);
-        const query: { [key: string]: string } = {};
-        fillFormData("query", query, formValuesTuple);
-        const param: { [key: string]: string } = {};
-        fillFormData("param", param, formValuesTuple);
-        const header: { [key: string]: string } = {};
-        fillFormData("header", header, formValuesTuple);
-
-        const paramString = Object.values(param).join('/');
-        const queryString = Object.entries(query)
-            .map(([key, value]) => `${key}=${value}`)
-            .join('&&');
-
-        const atrs = {
-            method: props.method,
-            url: `${props.url}/${paramString && paramString+'/'}${queryString && '?'+queryString+'/'}`,
-            data: body,
-            headers: header
-        };
-
-        return atrs;
-    }
-
-    const _sendReq = () => {
-        const atrs = _makeAtrs();
-
-        axios(atrs).then((res) => {
-            if (res.status === 200) {
-                props.callbackSucess(res.data);
-            } else {
-                handleError();
-            }
-        }).catch((_) => {
-            handleError();
-        }).finally(() => {
-            setCanSend(true);
-        });
-    }
 
     const send = (e: React.FormEvent) => {
+        const _makeAtrs = () => {
+            const formValuesTuple: TDictTuple = Object.entries(formValues);
+            const body: { [key: string]: string } = {};
+            fillFormData("body", body, formValuesTuple);
+            const query: { [key: string]: string } = {};
+            fillFormData("query", query, formValuesTuple);
+            const param: { [key: string]: string } = {};
+            fillFormData("param", param, formValuesTuple);
+            const header: { [key: string]: string } = {};
+            fillFormData("header", header, formValuesTuple);
+    
+            const paramString = Object.values(param).join('/');
+            const queryString = Object.entries(query)
+                .map(([key, value]) => `${key}=${value}`)
+                .join('&&');
+    
+            const atrs = {
+                method: props.method,
+                url: `${props.url}/${paramString && paramString+'/'}${queryString && '?'+queryString+'/'}`,
+                data: body,
+                headers: header
+            };
+    
+            return atrs;
+        }
+    
+        const _sendReq = () => {
+            const atrs = _makeAtrs();
+    
+            axios(atrs).then((res) => {
+                if (res.status === 200) {
+                    props.callbackSucess(res.data);
+                } else {
+                    handleError();
+                }
+            }).catch((_) => {
+                handleError();
+            }).finally(() => {
+                setCanSend(true);
+            });
+        }
+
+
         e.preventDefault();
 
         if(!canSend || !props.active === false) return;
@@ -135,16 +141,18 @@ const Form = (props: Props) => {
                 error={error}
             />
             {
-                props.inputs.map((inp, idx) => (
-                    <Input
+                props.inputs.map((inp, idx) => {
+                    const inpIndex = makeIndex(inp.apiType, inp.name);
+
+                    return <Input
                         key={idx}
                         setValue={handleInputChange}
-                        value={formValues[`${inp.apiType ? inp.apiType : 'body'}__${inp.name}`]}
+                        value={formValues[inpIndex]}
                         {...inp}
                         active={!canSend || !props.active === false}
                         error={error}
                     />
-                ))
+                })
             }
             { props.children }
             <SubmitInput 
