@@ -4,36 +4,62 @@ import { useState } from "react";
 import Input from "../components/input";
 import axios from "axios";
 import classNames from "classnames";
-import { IForm, TFormValues } from "@/types/form";
+import { IForm } from "@/types/form";
 import { errorMessage } from "@/mocks/form";
+import { TDict, TDictTuple } from "@/types/common";
 
 interface Props extends IForm {
-    callbackSucess: (data: TFormValues) => void,
+    callbackSucess: (data: TDict) => void,
     callbackError: () => void,
     className?: string,
     children?: React.ReactNode,
     active?: boolean,
-    submitText: string
+    submitText: string,
+    defaultValues?: TDict
 }
 
 
 const Form = (props: Props) => {
-    const [formValues, setFormValues] = useState<TFormValues>({});
+    const getInitialFormValues = () => {
+        const initialFormValues: TDict = {};
+
+        props.inputs.forEach(inp => {
+            initialFormValues[`${inp.apiType ? inp.apiType : 'body'}__${inp.name}`] = ''
+        });
+
+        return initialFormValues;
+    };
+
+
+    const [formValues, setFormValues] = useState<TDict>(
+        props.defaultValues ? { ...props.defaultValues } : getInitialFormValues()
+    );
     const [canSend, setCanSend] = useState(true);
     const [error, setError] = useState(false);
 
+
+    const makeIndex = (inputType: string | undefined, name: string) => (
+        `${inputType ? inputType : 'body'}__${name}`
+    );
+
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormValues((prevData) => {
-            const inputType = props.inputs.find(inp => inp.name === name)?.apiType;
+
+        setFormValues((old) => {
+          const inputType = props.inputs.find(inp => inp.name === name)?.apiType;
+
+          const index = makeIndex(inputType, name);
+
           return {
-          ...prevData,
-          [`${inputType ? inputType : 'body'}__${name}`]: value.toString()
-        }});
-        setError(false)
+            ...old,
+            [index]: value.toString()
+          };
+        });
+        setError(false);
     };
 
-    const fillFormData = (type: "body" | "query" | "param" | "header", data: { [key: string]: string }, formValuesTuple: [string, string][]) => {
+    const fillFormData = (type: "body" | "query" | "param" | "header", data: TDict, formValuesTuple: TDictTuple) => {
         formValuesTuple.forEach(([key, val]) => {
           const [typeVal, trueVal] = key.split("__");;
         
@@ -47,15 +73,9 @@ const Form = (props: Props) => {
         setError(true);
         props.callbackError();
     }
-
-    const send = (e: React.FormEvent) => {
-        e.preventDefault();
-
-        if(!canSend || !props.active === false) return;
-
-        setCanSend(false);
-
-        const formValuesTuple: [string, string][] = Object.entries(formValues);
+    
+    const _makeAtrs = () => {
+        const formValuesTuple: TDictTuple = Object.entries(formValues);
         const body: { [key: string]: string } = {};
         fillFormData("body", body, formValuesTuple);
         const query: { [key: string]: string } = {};
@@ -77,6 +97,12 @@ const Form = (props: Props) => {
             headers: header
         };
 
+        return atrs;
+    }
+
+    const _sendReq = () => {
+        const atrs = _makeAtrs();
+
         axios(atrs).then((res) => {
             if (res.status === 200) {
                 props.callbackSucess(res.data);
@@ -89,6 +115,17 @@ const Form = (props: Props) => {
             setCanSend(true);
         });
     }
+
+    const send = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if(!canSend || !props.active === false) return;
+
+        setCanSend(false);
+
+        _sendReq();  
+    };
+
 
     return (
         <form 
@@ -110,7 +147,7 @@ const Form = (props: Props) => {
                     <Input
                         key={idx}
                         setValue={handleInputChange}
-                        value={formValues[inp.name]}
+                        value={formValues[`${inp.apiType ? inp.apiType : 'body'}__${inp.name}`]}
                         {...inp}
                         active={!canSend || !props.active === false}
                         error={error}

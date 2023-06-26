@@ -4,7 +4,7 @@ import { form } from "@/mocks/login";
 import Form from "../../components/form";
 import { useSetRecoilState } from "recoil";
 import userAtom from "@/states/user";
-import { TFormValues } from "@/types/form";
+import { TDict } from "@/types/common";
 
 
 export const errorLogin = () => {
@@ -20,7 +20,7 @@ interface Props {
 const LoginForm = (props: Props) => {
     const setUser = useSetRecoilState(userAtom);
 
-    const sucessLogin = (data: TFormValues) => {
+    const sucessLogin = (data: TDict) => {
         const newUser = {
             id: parseInt(data['id']),
             nome: data['nome'],

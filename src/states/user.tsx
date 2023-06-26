@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-type TUser = null | {
+export type TUser = null | {
     type: 'rider' | 'driver',
     id: number,
     nome: string

@@ -2,11 +2,11 @@
 
 import { form } from "@/mocks/register";
 import Form from "../../components/form";
-import { TFormValues } from "@/types/form";
 import axios from "axios";
 import userAtom from "@/states/user";
 import { useSetRecoilState } from "recoil";
 import { errorLogin } from "@/app/login/[user]/loginForm";
+import { TDict } from "@/types/common";
 
 
 interface Props {
@@ -17,7 +17,7 @@ const RegisterForm = (props: Props) => {
     const setUser = useSetRecoilState(userAtom);
     
 
-    const sucessRegister = (data: TFormValues) => {
+    const sucessRegister = (data: TDict) => {
         const id = data
         const url = `${form[props.user].url}/${id}/`;
 

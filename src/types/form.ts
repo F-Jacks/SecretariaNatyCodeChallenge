@@ -1,6 +1,4 @@
-export type TFormValues = {
-    [key: string]: string;
-};
+
 
 export interface IInput {
     type: "text" | "password" | "email" | "date" | "number" | "tel",
