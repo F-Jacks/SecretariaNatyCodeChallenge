@@ -22,7 +22,7 @@ const Sign = ({params}: Props) => {
                         alt={`background image for ${params.user}`}
                         width={1200}
                         height={1200}
-                        className='object-cover w-full h-full absolute overflow-hidden top-0 left-0 opacity-60 -z-10'
+                        className='object-cover w-full h-full absolute overflow-hidden top-0 left-0 -z-10'
                         placeholder='blur'
                     />
                 </div>

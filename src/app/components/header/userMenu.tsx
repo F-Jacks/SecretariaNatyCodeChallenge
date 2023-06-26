@@ -31,10 +31,10 @@ const UserMenu = (props: Props) => {
         alt: user ? user.type : 'user',
         src: user ? 
             user.type === "driver" ? 
-                driverIconSrc : 
-                riderIconSrc
+                driverIconSrc.src : 
+                riderIconSrc.src
             :
-            loginIconSrc
+            loginIconSrc.src
     }
 
     useEffect(() => {

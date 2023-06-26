@@ -1,38 +1,44 @@
 "use client"
 
-import Image from 'next/image';
 import AccountForm from './accountForm';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import userAtom from '@/states/user';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { form } from '@/mocks/update';
-import { TDict } from '@/types/common';
-import { deleteIcon, deleteTitle } from '@/mocks/account';
+import { TDict, TDictTuple } from '@/types/common';
 import { redirect } from 'next/navigation'
-import SvgIcon from '@mui/material/SvgIcon';
 import headerLoadedAtom from '@/states/header';
+import FixedInfos from './fixedInfos';
+import Delete from './delete';
 
 
 const Account = () => {
     const [user, setUser] = useRecoilState(userAtom);
     const [userInputs, setUserInputs] = useState<TDict>({});
+    const [fixedInfos, setFixedInfos] =  useState<TDictTuple>([]);
     const headerLoaded =  useRecoilValue(headerLoadedAtom);
+
 
     const _makeNewUserInputs = (data: TDict) => {
         if (!user) return;
 
         const newUserInputs: TDict = {};
+        const newFixedInputs: TDictTuple = [];
+
         const dictInputs = Object.entries(data);
 
         dictInputs.forEach(inp => {
             const trueInp = form[user.type].inputs.find(input => input.name === inp[0]);
             if (trueInp) {
                 newUserInputs[`${trueInp.apiType || "body"}__${trueInp.name}`] = `${inp[1]}`;
+            } else {
+                newFixedInputs.push(inp);
             }
         });
 
         setUserInputs(newUserInputs);
+        setFixedInfos(newFixedInputs);
     }
 
     const getUserInfosFail = () => {
@@ -60,44 +66,19 @@ const Account = () => {
         } else {
             getUserInfosFail();
         }
-    }, [user]);
+    }, [user, headerLoaded]);
 
     return (
         <>
-            <section>
-                <h1>
-                    {/* <Image
-                        src={}
-                        alt={}
-                        width={}
-                        height={}
-                        className=""
-                    /> */}
-                </h1>
-                {/* <p>
-                    {}
-                </p>
-                <p>
-                    {}
-                </p> */}
-            </section>
+            <FixedInfos 
+                fixedInfos={fixedInfos}
+                user={user}
+            />
             <AccountForm 
                 user={user}
                 userInputs={userInputs}
             />
-            <section className='w-full max-w-xs mx-auto px-[5%] flex justify-between items-center'>
-                <span className='text-[rgba(255,255,255,0.4)] '>
-                    {deleteTitle}
-                </span>
-                <button
-                    className='bg-red-700 h-8 w-8 rounded-[8px]'
-                >
-                    <SvgIcon 
-                        component={deleteIcon} 
-                        inheritViewBox 
-                    />
-                </button>
-            </section>
+            <Delete />
         </>
     );
 };

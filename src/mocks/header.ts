@@ -3,9 +3,9 @@ import driverIcon from '/public/imgs/driverIcon.png';
 import loginIcon from '/public/imgs/userIcon.png';
 
 
-export const riderIconSrc = riderIcon.src;
-export const driverIconSrc = driverIcon.src;
-export const loginIconSrc = loginIcon.src;
+export const riderIconSrc = riderIcon;
+export const driverIconSrc = driverIcon;
+export const loginIconSrc = loginIcon;
 
 export const menuLinks = [
     'home', 
