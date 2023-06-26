@@ -5,6 +5,7 @@ import Form from "../../components/form";
 import { useSetRecoilState } from "recoil";
 import userAtom from "@/states/user";
 import { TDict } from "@/types/common";
+import { TUserType } from "@/types/user";
 
 
 export const errorLogin = () => {
@@ -13,7 +14,7 @@ export const errorLogin = () => {
 
 
 interface Props {
-    user: 'driver' | 'rider'
+    user: TUserType
 }
 
 

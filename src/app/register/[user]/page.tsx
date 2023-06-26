@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import RegisterForm from './registerForm';
 import { image, title } from '@/mocks/register';
+import { TUserType } from '@/types/user';
 
 interface Props {
     params: {
-        user: 'driver' | 'rider'
+        user: TUserType
     }
 }
 

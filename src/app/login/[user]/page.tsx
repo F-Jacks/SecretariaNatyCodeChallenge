@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import { image, title } from "@/mocks/login";
 import LoginForm from "./loginForm";
+import { TUserType } from '@/types/user';
 
 interface Props {
     params: {
-        user: 'driver' | 'rider'
+        user: TUserType
     }
 }
 

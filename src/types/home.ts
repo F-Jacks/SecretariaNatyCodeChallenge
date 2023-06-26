@@ -5,3 +5,5 @@ export interface IReview {
     text: string,
     author: string
 }
+
+export type TReviewSide = "left" | "right";

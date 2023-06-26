@@ -1,7 +1,7 @@
-import { TUser } from "@/states/user";
 import Form from "../components/form";
 import { form } from "@/mocks/update";
 import { TDict } from "@/types/common";
+import { TUser } from "@/types/user";
 
 interface Props {
     user: TUser,

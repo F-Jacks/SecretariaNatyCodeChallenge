@@ -1,9 +1,9 @@
-import { IReview } from "@/types/home";
+import { IReview, TReviewSide } from "@/types/home";
 import classNames from "classnames";
 import Image from "next/image";
 
 interface Props extends IReview {
-    side: "left" | "right"
+    side: TReviewSide
 }
 
 

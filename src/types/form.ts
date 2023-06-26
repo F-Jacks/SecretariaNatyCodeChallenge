@@ -1,5 +1,3 @@
-
-
 export interface IInput {
     type: "text" | "password" | "email" | "date" | "number" | "tel",
     name: string,
@@ -7,8 +5,10 @@ export interface IInput {
     placeholder?: string
 };
 
+export type TApiType = "body" | "query" | "param" | "header";
+
 export interface IInputForm extends IInput {
-    apiType?: "body" | "query" | "param" | "header"
+    apiType?: TApiType
 }
 
 export interface IForm {
@@ -16,6 +16,7 @@ export interface IForm {
     url: string;
     method: 'get' | 'post' | 'put' | 'delete';
 }
+
 export type TFormConst = {
     [key in 'driver' | 'rider']: IForm;
 };

@@ -7,10 +7,11 @@ import userAtom from "@/states/user";
 import { useSetRecoilState } from "recoil";
 import { errorLogin } from "@/app/login/[user]/loginForm";
 import { TDict } from "@/types/common";
+import { TUserType } from "@/types/user";
 
 
 interface Props {
-    user: 'driver' | 'rider'
+    user: TUserType
 }
 
 const RegisterForm = (props: Props) => {

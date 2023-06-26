@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import LinkButton from '../components/linkButton';
 import { image, login, register, text, title } from '@/mocks/home/sign';
+import { TUserType } from '@/types/user';
 
 
 interface Props {
     params: {
-        user: 'rider' | 'driver'
+        user: TUserType
     }
 }
 

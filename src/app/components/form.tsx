@@ -4,7 +4,7 @@ import { useState } from "react";
 import Input from "../components/input";
 import axios from "axios";
 import classNames from "classnames";
-import { IForm } from "@/types/form";
+import { IForm, TApiType } from "@/types/form";
 import { errorMessage } from "@/mocks/form";
 import { TDict, TDictTuple } from "@/types/common";
 
@@ -59,7 +59,7 @@ const Form = (props: Props) => {
         setError(false);
     };
 
-    const fillFormData = (type: "body" | "query" | "param" | "header", data: TDict, formValuesTuple: TDictTuple) => {
+    const fillFormData = (type: TApiType, data: TDict, formValuesTuple: TDictTuple) => {
         formValuesTuple.forEach(([key, val]) => {
           const [typeVal, trueVal] = key.split("__");;
         
