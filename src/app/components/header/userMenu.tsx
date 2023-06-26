@@ -12,6 +12,7 @@ import { useRecoilState } from 'recoil';
 import { useEffect, useLayoutEffect } from 'react';
 import { CookiesProvider, useCookies } from 'react-cookie';
 import { driverIconSrc, loginIconSrc, riderIconSrc, userLinks } from '@/mocks/header';
+import headerLoadedAtom from '@/states/header';
 
 
 interface Props {
@@ -24,6 +25,8 @@ interface Props {
 const UserMenu = (props: Props) => {
     const [user, setUser] = useRecoilState(userAtom);
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
+    const [headerLoaded, setHeaderLoaded] =  useRecoilState(headerLoadedAtom);
+
     let avatar = {
         alt: user ? user.type : 'user',
         src: user ? 
@@ -35,16 +38,22 @@ const UserMenu = (props: Props) => {
     }
 
     useEffect(() => {
+        if (!headerLoaded) return;
+
         if (user) {
             setCookie('user', user);
         } else {
-            removeCookie('user');
+            setCookie('user', null);
         }
     }, [user]);
 
-    useLayoutEffect(() => {        
-        if (cookies.user) {
+    useLayoutEffect(() => {
+        if ('user' in cookies) {
             setUser(cookies.user);
+            setHeaderLoaded(true);
+        } else {
+            setCookie('user', null);
+            setHeaderLoaded(true);
         }
     }, []);
 

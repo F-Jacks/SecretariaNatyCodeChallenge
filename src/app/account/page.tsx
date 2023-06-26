@@ -2,17 +2,22 @@
 
 import Image from 'next/image';
 import AccountForm from './accountForm';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import userAtom from '@/states/user';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { form } from '@/mocks/update';
 import { TDict } from '@/types/common';
+import { deleteIcon, deleteTitle } from '@/mocks/account';
+import { redirect } from 'next/navigation'
+import SvgIcon from '@mui/material/SvgIcon';
+import headerLoadedAtom from '@/states/header';
 
 
 const Account = () => {
-    const user = useRecoilValue(userAtom);
+    const [user, setUser] = useRecoilState(userAtom);
     const [userInputs, setUserInputs] = useState<TDict>({});
+    const headerLoaded =  useRecoilValue(headerLoadedAtom);
 
     const _makeNewUserInputs = (data: TDict) => {
         if (!user) return;
@@ -30,7 +35,15 @@ const Account = () => {
         setUserInputs(newUserInputs);
     }
 
+    const getUserInfosFail = () => {
+        setUserInputs({});
+        setUser(null);
+        redirect('/');
+    };
+
     useEffect(() => {
+        if (!headerLoaded) return;
+
         if (user) {
             const userType = user.type === 'rider' ? 'Cliente' : 'Condutor';
 
@@ -39,13 +52,13 @@ const Account = () => {
                     if (res.status === 200) {
                         _makeNewUserInputs(res.data);
                     } else {
-                        setUserInputs({});
+                        getUserInfosFail();
                     }
                 }).catch((_) => {
-                    setUserInputs({});
+                    getUserInfosFail();
                 })
         } else {
-            setUserInputs({});
+            getUserInfosFail();
         }
     }, [user]);
 
@@ -72,16 +85,19 @@ const Account = () => {
                 user={user}
                 userInputs={userInputs}
             />
-            {/* <section>
-                <span>
-                    {}
+            <section className='w-full max-w-xs mx-auto px-[5%] flex justify-between items-center'>
+                <span className='text-[rgba(255,255,255,0.4)] '>
+                    {deleteTitle}
                 </span>
                 <button
-                
+                    className='bg-red-700 h-8 w-8 rounded-[8px]'
                 >
-                    {}
+                    <SvgIcon 
+                        component={deleteIcon} 
+                        inheritViewBox 
+                    />
                 </button>
-            </section> */}
+            </section>
         </>
     );
 };
