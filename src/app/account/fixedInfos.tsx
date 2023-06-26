@@ -20,6 +20,19 @@ const FixedInfos = (props : Props) => {
             loginIconSrc
     }
 
+    const substituirMaiusculasPorMinusculas = (str: string) => {
+        var novaString = "";
+        for (var i = 0; i < str.length; i++) {
+          var letra = str[i];
+          if (letra === letra.toUpperCase()) {
+            novaString += " " + letra.toLowerCase();
+          } else {
+            novaString += letra;
+          }
+        }
+        return novaString;
+    }
+
     return (
         <section className='mx-auto px-[5%] max-w-4xl gap-x-4 grow w-full mt-[60px] ltmd:mt-[68px] flex flex-wrap items-center justify-between'>
             <h1 className="bg-white rounded-xl relative w-24 h-24">
@@ -39,7 +52,7 @@ const FixedInfos = (props : Props) => {
                             key={idx}
                         >
                             <p className='text-white text-sm'>
-                                {`${inp[0]}: ${inp[1]}`}
+                                {`${substituirMaiusculasPorMinusculas(inp[0])}: ${inp[1]}`}
                             </p>
                         </li>
                     ))

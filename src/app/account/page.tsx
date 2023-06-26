@@ -70,15 +70,23 @@ const Account = () => {
 
     return (
         <>
-            <FixedInfos 
-                fixedInfos={fixedInfos}
-                user={user}
-            />
-            <AccountForm 
-                user={user}
-                userInputs={userInputs}
-            />
-            <Delete />
+            {
+                user && headerLoaded ?
+                <>
+                    <FixedInfos 
+                        fixedInfos={fixedInfos}
+                        user={user}
+                    />
+                    <AccountForm 
+                        user={user}
+                        userInputs={userInputs}
+                    />
+                    <Delete />
+                </> : 
+                <div className='text-2xl text-white flex items-center justify-center h-full grow'>
+                    LOADING...
+                </div>
+            }
         </>
     );
 };
