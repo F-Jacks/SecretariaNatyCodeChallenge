@@ -22,9 +22,7 @@ const Delete = () => {
         if (!user) return;
 
         const url = `${deleteCofirm.url}${user.type === 'rider' ? 'Client' : 'Condutor'}/${user.id}/`;
-        console.log(url);
         axios.delete(url).then((res) => {
-            console.log('a');
             setOpen(false);
             setUser(null);
             setDeleted(true);
