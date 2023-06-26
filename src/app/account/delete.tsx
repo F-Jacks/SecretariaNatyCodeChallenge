@@ -1,10 +1,44 @@
-import { deleteIcon, deleteTitle } from "@/mocks/account";
+"use client"
+
+import { deleteCofirm, deleteIcon, deleteTitle } from "@/mocks/account";
 import SvgIcon from "@mui/material/SvgIcon";
 import { useState } from "react";
 import TransitionsModal from "../components/modal";
+import axios from "axios";
+import userAtom from "@/states/user";
+import { useRecoilState } from "recoil";
+import { redirect } from "next/navigation";
+import classNames from "classnames";
+
 
 const Delete = () => {
     const [open, setOpen] = useState(false);
+    const [user, setUser] = useRecoilState(userAtom);
+    const [deleted, setDeleted] = useState(false);
+    const [error, setError] = useState(false);
+
+
+    const handleDelete = () => {
+        if (!user) return;
+
+        const url = `${deleteCofirm.url}${user.type === 'rider' ? 'Client' : 'Condutor'}/${user.id}/`;
+        console.log(url);
+        axios.delete(url).then((res) => {
+            console.log('a');
+            setOpen(false);
+            setUser(null);
+            setDeleted(true);
+            setError(false);
+            setTimeout(() => {
+                redirect('/');
+            }, 2500);
+        }).catch((_) => {
+            setError(true);
+            setTimeout(() => {
+                setError(false);
+            }, 3000);
+        });
+    };
 
     return (
         <section className='w-full max-w-xl mx-auto px-[5%] flex justify-between items-center'>
@@ -24,17 +58,40 @@ const Delete = () => {
                 open={open}
                 setOpen={setOpen}
             >
-                <div className="max-h-[45vh] overflow-auto">
-                    <p>{"khiugipogoluilu"}</p>
-                    <p>{`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consectetur elit vitae mauris consectetur, non eleifend nisi finibus. Sed ut malesuada risus. Nullam quis nisi vitae dolor ultricies consectetur. Pellentesque fringilla, velit a rutrum iaculis, nulla ipsum gravida eros, a accumsan tellus velit nec lacus. Proin ac purus id est consectetur porttitor a eu tellus. Morbi posuere, mauris at ultrices tristique, arcu risus lacinia elit, vitae pulvinar neque metus id nisl. Nullam eget est eu justo pellentesque consequat. Aliquam sagittis libero id enim pharetra, eu tincidunt lectus luctus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris a scelerisque lacus. Sed interdum, urna a hendrerit sagittis, dui enim luctus mauris, ut condimentum odio lectus sed felis. Maecenas suscipit arcu quis gravida aliquam.
-
-Nullam hendrerit, nulla sed interdum hendrerit, ex justo hendrerit libero, et dictum risus ex sed enim. Integer convallis libero quis neque ultrices, et consequat est ultricies. Nullam rutrum ullamcorper ipsum, sed tincidunt justo feugiat sed. Morbi eu lacus suscipit, ultrices erat id, consectetur urna. Nam rutrum ante sed ex auctor, a dictum velit auctor. Morbi eleifend nisl sit amet purus feugiat malesuada. Donec iaculis rutrum dolor, id cursus erat finibus id.
-
-Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse aliquet scelerisque bibendum. Mauris sollicitudin dapibus metus, eget faucibus velit feugiat sed. Maecenas sodales diam nec est tincidunt iaculis. Nam accumsan consequat ultrices. Curabitur ut placerat neque, nec ultrices enim. Proin rutrum dui vel lectus bibendum ultricies. Suspendisse quis urna sit amet arcu vestibulum pharetra at a mauris. Nullam maximus pulvinar risus, eu auctor lectus tincidunt sit amet. Morbi ut faucibus quam. Phasellus sollicitudin pharetra ante, vel egestas est malesuada eu. Etiam interdum faucibus ligula, ac convallis ipsum eleifend eget. Vivamus id hendrerit dui. Cras feugiat eros at aliquam iaculis. Sed venenatis tellus a leo interdum vestibulum. Nullam bibendum nisl vitae mauris efficitur, vitae tempor ligula finibus.
-
-This is a placeholder text often used in design and typesetting to demonstrate the visual effects of different fonts, layouts, and formatting. It does not have any specific meaning and is not meant to be read as coherent text.`}</p>
-                    <button>{"yes delete"}</button>
-                </div>
+                {
+                    deleted ?
+                    <span className="text-green-600 text-xl flex justify-center items-center w-full h-full">
+                        DELETED
+                    </span> :
+                    <>
+                        <div className={classNames({
+                            ["max-h-[45vh] overflow-auto border-2 p-2 relative"]: true,
+                            ["border-red-700"]: error,
+                            ["border-transparent"]: !error
+                        })}>
+                            <div className="flex flex-col gap-y-4 h-full">
+                                <p className="text-sm text-center">
+                                    {deleteCofirm.title}
+                                </p>
+                                <p className="text-sm">
+                                    {deleteCofirm.text}
+                                </p>
+                                <button 
+                                    className="w-full bg-red-900 h-10"
+                                    onClick={() => handleDelete()}
+                                >
+                                    {deleteCofirm.textSubmit}
+                                </button>
+                            </div>
+                        </div>
+                        {
+                            error &&
+                            <span className="absolute top-[2rem] left-[2rem] text-red-700 w-full max-w-[calc(100%-7rem)]">
+                                {deleteCofirm.errorText}
+                            </span>
+                        }
+                    </>
+                }
             </TransitionsModal>
         </section>
     );
