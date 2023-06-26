@@ -1,13 +1,13 @@
 "use client"
 
 import { form } from "@/mocks/register";
-import Form from "../../components/form";
 import axios from "axios";
 import userAtom from "@/states/user";
 import { useSetRecoilState } from "recoil";
 import { errorLogin } from "@/app/login/[user]/loginForm";
 import { TDict } from "@/types/common";
 import { TUserType } from "@/types/user";
+import Form from "@/app/components/form/form";
 
 
 interface Props {

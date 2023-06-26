@@ -1,11 +1,11 @@
 "use client"
 
 import { form } from "@/mocks/login";
-import Form from "../../components/form";
 import { useSetRecoilState } from "recoil";
 import userAtom from "@/states/user";
 import { TDict } from "@/types/common";
 import { TUserType } from "@/types/user";
+import Form from "@/app/components/form/form";
 
 
 export const errorLogin = () => {
