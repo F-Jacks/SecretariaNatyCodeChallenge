@@ -1,12 +1,13 @@
 "use client"
 
 import { useState } from "react";
-import Input from "../components/input";
+import Input from "./input";
 import axios from "axios";
 import classNames from "classnames";
 import { IForm, TApiType } from "@/types/form";
-import { errorMessage } from "@/mocks/form";
 import { TDict, TDictTuple } from "@/types/common";
+import ErrorMessage from "./errorMessage";
+import SubmitInput from "./submitInput";
 
 interface Props extends IForm {
     callbackSucess: (data: TDict) => void,
@@ -38,18 +39,13 @@ const Form = (props: Props) => {
     const [error, setError] = useState(false);
 
 
-    const makeIndex = (inputType: string | undefined, name: string) => (
-        `${inputType ? inputType : 'body'}__${name}`
-    );
-
-
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
 
         setFormValues((old) => {
           const inputType = props.inputs.find(inp => inp.name === name)?.apiType;
 
-          const index = makeIndex(inputType, name);
+          const index = `${inputType ? inputType : 'body'}__${name}`;
 
           return {
             ...old,
@@ -135,13 +131,9 @@ const Form = (props: Props) => {
                 [props.className || 'flex flex-col gap-y-6']: true
             })}
         >
-            <span className={classNames({
-                ['bg-red-700 text-white text-base text-center bottom-0 fixed p-2 w-full left-0 transform transition-transform duration-250']: true,
-                ['translate-y-[100%]']: !error,
-                ['translate-y-0']: error
-            })}>
-                {errorMessage}
-            </span>
+            <ErrorMessage 
+                error={error}
+            />
             {
                 props.inputs.map((inp, idx) => (
                     <Input
@@ -155,10 +147,8 @@ const Form = (props: Props) => {
                 ))
             }
             { props.children }
-            <input 
-                type="submit" 
-                value={props.submitText}
-                className="border-[#0076E3] bg-[#0076E3] cursor-pointer p-2 text-base h-10 min-w-[10rem] w-full mx-auto flex justify-center items-center border-2"
+            <SubmitInput 
+                submitText={props.submitText}
             />
         </form>
     );
