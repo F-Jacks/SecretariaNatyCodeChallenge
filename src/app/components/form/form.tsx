@@ -1,11 +1,11 @@
 "use client"
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Input from "./input";
 import axios from "axios";
 import classNames from "classnames";
-import { IForm, TApiType } from "@/types/form";
-import { TDict, TDictTuple } from "@/types/common";
+import { IForm } from "@/types/form";
+import { TDict, TDictOfDicts } from "@/types/common";
 import ErrorMessage from "./errorMessage";
 import SubmitInput from "./submitInput";
 
@@ -19,6 +19,9 @@ interface Props extends IForm {
     defaultValues?: TDict
 }
 
+const makeIndex = (inputType: string | undefined, name: string) => (
+    `${inputType ? inputType : 'body'}__${name}`
+);
 
 const Form = (props: Props) => {
     const getInitialFormValues = () => {
@@ -39,36 +42,21 @@ const Form = (props: Props) => {
     const [error, setError] = useState(false);
 
 
-    const makeIndex = (inputType: string | undefined, name: string) => (
-        `${inputType ? inputType : 'body'}__${name}`
-    );
-
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-
+    
         setFormValues((old) => {
           const inputType = props.inputs.find(inp => inp.name === name)?.apiType;
-
+    
           const index = makeIndex(inputType, name);
-
+    
           return {
             ...old,
             [index]: value.toString()
           };
         });
         setError(false);
-    };
-
-    const fillFormData = (type: TApiType, data: TDict, formValuesTuple: TDictTuple) => {
-        formValuesTuple.forEach(([key, val]) => {
-          const [typeVal, trueVal] = key.split("__");;
-        
-          if (typeVal === type) {
-            data[trueVal] = val;
-          }
-        })
-    }
+    }, [props.inputs]);
 
     const handleError = () => {
         setError(true);
@@ -77,26 +65,31 @@ const Form = (props: Props) => {
 
     const send = (e: React.FormEvent) => {
         const _makeAtrs = () => {
-            const formValuesTuple: TDictTuple = Object.entries(formValues);
-            const body: { [key: string]: string } = {};
-            fillFormData("body", body, formValuesTuple);
-            const query: { [key: string]: string } = {};
-            fillFormData("query", query, formValuesTuple);
-            const param: { [key: string]: string } = {};
-            fillFormData("param", param, formValuesTuple);
-            const header: { [key: string]: string } = {};
-            fillFormData("header", header, formValuesTuple);
+            const formValuesTuple = Object.entries(formValues);
+
+            const data: TDictOfDicts = {
+                body: {},
+                query: {},
+                param: {},
+                header: {}
+            };
+              
+            formValuesTuple.forEach(([key, val]) => {
+                const [typeVal, trueVal] = key.split("__");
+              
+                data[typeVal as keyof typeof data][trueVal] = val;
+            });
     
-            const paramString = Object.values(param).join('/');
-            const queryString = Object.entries(query)
+            const paramString = Object.values(data.param).join('/');
+            const queryString = Object.entries(data.query)
                 .map(([key, value]) => `${key}=${value}`)
                 .join('&&');
     
             const atrs = {
                 method: props.method,
                 url: `${props.url}/${paramString && paramString+'/'}${queryString && '?'+queryString+'/'}`,
-                data: body,
-                headers: header
+                data: data.body,
+                headers: data.header
             };
     
             return atrs;
