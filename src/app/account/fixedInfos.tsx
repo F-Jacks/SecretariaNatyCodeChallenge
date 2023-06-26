@@ -34,7 +34,7 @@ const FixedInfos = (props : Props) => {
     }
 
     return (
-        <section className='mx-auto px-[5%] max-w-4xl gap-x-4 grow w-full mt-[60px] ltmd:mt-[68px] flex flex-wrap items-center justify-between'>
+        <section className='mx-auto px-[5%] max-w-4xl gap-x-4 w-full mt-[6px] ltmd:mt-[8px] flex flex-wrap items-center justify-between h-fit'>
             <h1 className="bg-white rounded-xl relative w-24 h-24">
                 <Image
                     src={avatar.src}

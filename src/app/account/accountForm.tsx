@@ -31,6 +31,8 @@ const AccountForm = (props: Props) => {
                     callbackError={errorUpdate}
                     submitText="update"
                     defaultValues={props.userInputs}
+                    className="flex flex-col gap-6 md:grid md:grid-cols-2"
+                    submitClassName="col-span-2"
                 />
             }
         </section>

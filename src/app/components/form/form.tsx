@@ -16,7 +16,8 @@ interface Props extends IForm {
     children?: React.ReactNode,
     active?: boolean,
     submitText: string,
-    defaultValues?: TDict
+    defaultValues?: TDict,
+    submitClassName?: string
 }
 
 const makeIndex = (inputType: string | undefined, name: string) => (
@@ -150,6 +151,7 @@ const Form = (props: Props) => {
             { props.children }
             <SubmitInput 
                 submitText={props.submitText}
+                submitClassName={props.submitClassName}
             />
         </form>
     );

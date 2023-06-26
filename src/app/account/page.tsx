@@ -11,6 +11,7 @@ import { redirect } from 'next/navigation'
 import headerLoadedAtom from '@/states/header';
 import FixedInfos from './fixedInfos';
 import Delete from './delete';
+import { loadingText } from '@/mocks/account';
 
 
 const Account = () => {
@@ -69,7 +70,7 @@ const Account = () => {
     }, [user, headerLoaded]);
 
     return (
-        <>
+        <div className='flex items-center justify-center gap-y-8 flex-col h-full w-full grow mt-[60px] ltmd:mt-[68px]'>
             {
                 user && headerLoaded ?
                 <>
@@ -83,11 +84,11 @@ const Account = () => {
                     />
                     <Delete />
                 </> : 
-                <div className='text-2xl text-white flex items-center justify-center h-full grow'>
-                    LOADING...
+                <div className='text-2xl'>
+                    {loadingText}
                 </div>
             }
-        </>
+        </div>
     );
 };
 

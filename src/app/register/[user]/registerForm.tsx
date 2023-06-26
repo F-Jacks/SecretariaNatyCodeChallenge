@@ -48,7 +48,7 @@ const RegisterForm = (props: Props) => {
     }
 
     return (
-        <section className="w-full mx-auto px-[5%] max-w-4xl">
+        <section className="w-full mx-auto px-[5%] max-w-6xl">
             <Form 
                 url={form[props.user].url}
                 inputs={form[props.user].inputs}
@@ -56,6 +56,8 @@ const RegisterForm = (props: Props) => {
                 callbackSucess={sucessRegister}
                 callbackError={errorRegister}
                 submitText="register"
+                className="flex flex-col gap-6 md:grid md:grid-cols-2"
+                submitClassName="col-span-2"
             />
         </section>
     );
