@@ -83,7 +83,15 @@ const Form = (props: Props) => {
             formValuesTuple.forEach(([key, val]) => {
                 const [typeVal, trueVal] = key.split("__");
               
-                data[typeVal as keyof typeof data][trueVal] = val;
+                if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(val)) {
+                    const [year, month, day, hour, minute] = val.split(/[-T:]/);
+
+                    const dateObj = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hour), parseInt(minute));
+                    
+                    data[typeVal as keyof typeof data][trueVal] = dateObj.toISOString();
+                } else {
+                    data[typeVal as keyof typeof data][trueVal] = val;
+                }
             });
     
             const paramString = Object.values(data.param).join('/');
@@ -103,6 +111,8 @@ const Form = (props: Props) => {
     
         const _sendReq = () => {
             const atrs = _makeAtrs();
+
+            console.log(atrs)
 
             axios(atrs).then((res) => {
                 if (res.status === 200) {

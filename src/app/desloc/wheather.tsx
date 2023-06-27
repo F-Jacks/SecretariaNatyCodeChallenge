@@ -37,7 +37,7 @@ const Weather = () => {
 
 
     return (
-        <section className="bg-black rounded-[8px] absolute bottom-[2rem] left-[2rem] flex gap-x-4 flex-wrap px-3 py-2">
+        <section className="bg-black rounded-[8px] absolute bottom-[2rem] left-[2rem] flex gap-x-4 flex-wrap px-3 py-2 z-10">
             {
                 weather ?
                 <>
