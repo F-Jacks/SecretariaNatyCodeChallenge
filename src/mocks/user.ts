@@ -9,11 +9,11 @@ export const loginIconSrc = loginIcon;
 
 export const runLink = {
     'rider': {
-        link: '/',
+        link: '/desloc',
         text: 'start your ride'
     },
     'driver': {
-        link: '/',
+        link: '/desloc',
         text: 'start your drive'
     }
 }
