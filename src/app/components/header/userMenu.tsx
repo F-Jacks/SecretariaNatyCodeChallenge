@@ -9,11 +9,12 @@ import Menu from '@mui/material/Menu';
 import Box from '@mui/material/Box';
 import userAtom from '@/states/user';
 import { useRecoilState } from 'recoil';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { CookiesProvider, useCookies } from 'react-cookie';
 import { userLinks } from '@/mocks/header';
 import headerLoadedAtom from '@/states/header';
 import { driverIconSrc, loginIconSrc, riderIconSrc } from '@/mocks/user';
+import { TDict } from '@/types/common';
 
 
 interface Props {
@@ -27,24 +28,25 @@ const UserMenu = (props: Props) => {
     const [user, setUser] = useRecoilState(userAtom);
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
     const [headerLoaded, setHeaderLoaded] =  useRecoilState(headerLoadedAtom);
-
-    let avatar = {
-        alt: user ? user.type : 'user',
-        src: user ? 
-            user.type === "driver" ? 
-                driverIconSrc.src : 
-                riderIconSrc.src
-            :
-            loginIconSrc.src
-    }
+    const [avatar, setAvatar] =  useState<TDict>({alt: 'user', src: loginIconSrc.src});
 
     useEffect(() => {
         if (!headerLoaded) return;
 
         if (user) {
             setCookie('user', user);
+            setAvatar({
+                alt: user.type,
+                src: user.type === "driver" ? 
+                        driverIconSrc.src : 
+                        riderIconSrc.src
+            });
         } else {
             setCookie('user', null);
+            setAvatar({
+                alt: 'user', 
+                src: loginIconSrc.src
+            });
         }
     }, [user]);
 
