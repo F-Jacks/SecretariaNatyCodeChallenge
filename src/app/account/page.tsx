@@ -11,7 +11,7 @@ import headerLoadedAtom from '@/states/header';
 import FixedInfos from './fixedInfos';
 import Delete from './delete';
 import { loadingText } from '@/mocks/account';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 
 const Account = () => {
