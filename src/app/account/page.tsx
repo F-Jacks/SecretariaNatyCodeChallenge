@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation';
 
 const Account = () => {
     const router = useRouter();
+    
     const [user, setUser] = useRecoilState(userAtom);
     const [userInputs, setUserInputs] = useState<TDict>({});
     const [fixedInfos, setFixedInfos] =  useState<TDictTuple>([]);
