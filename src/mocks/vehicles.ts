@@ -17,4 +17,15 @@ export const form: IForm = {
         {name:"anoFabricacao", type: "number"},
         {name: "kmAtual", type: 'number'}
     ]
+};
+
+export const updateForm: IForm = {
+    url: 'https://api-deslocamento.herokuapp.com/api/v1/Veiculo',
+    method: 'put',
+    inputs: [
+        {name: "id", type: "number"},
+        {name: "marcaModelo", type: "text"},
+        {name:"anoFabricacao", type: "number"},
+        {name: "kmAtual", type: 'number'}
+    ]
 }

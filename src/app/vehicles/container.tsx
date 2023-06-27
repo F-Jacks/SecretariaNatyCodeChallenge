@@ -24,7 +24,7 @@ const Container = (props: Props) => {
                 </div>
                 <div className="flex justify-between mt-4 text-white">
                     <Link 
-                        href={`vehicle/${props.id}`}
+                        href={`vehicles/${props.id}`}
                         className="h-8 w-8 rounded-[8px] bg-[#0076E3] flex justify-center items-center"
                     >
                         <SvgIcon component={updateVehicleIcon} viewBox="0 0 24 24" />
