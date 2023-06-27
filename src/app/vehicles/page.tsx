@@ -40,7 +40,7 @@ const Vehicle = () => {
 
   return (
     <>
-      <section className="mx-auto px-[5%] w-full mt-[60px] ltmd:mt-[68px]">
+      <section className="w-full mt-[60px] ltmd:mt-[68px] h-full mx-auto px-[5%] max-w-4xl">
         <h1 className="mb-12 text-black w-fit text-center bg-white p-4 mx-auto">
             {title}
         </h1>
@@ -48,8 +48,8 @@ const Vehicle = () => {
             {registerText}
         </LinkButton>
       </section>
-      <section>
-        <ul>
+      <section className="w-full h-full mx-auto px-[5%] max-w-4xl">
+        <ul className='flex items-center justify-center flex-col gap-y-8'>
           {vehicles.map((v, idx) => (
             <Container 
               key={idx} 
