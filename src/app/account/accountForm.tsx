@@ -24,7 +24,7 @@ const AccountForm = (props: Props) => {
             {
                 Object.keys(props.userInputs).length > 0 && props.user &&
                 <Form 
-                    url={`${form[props.user.type].url}/${props.user.id}/`}
+                    url={`${form[props.user.type].url}/${props.user.id}`}
                     inputs={form[props.user.type].inputs}
                     method={form[props.user.type].method}
                     callbackSucess={sucessUpdate}

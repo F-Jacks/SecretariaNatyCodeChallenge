@@ -1,5 +1,5 @@
 export interface IInput {
-    type: "text" | "password" | "email" | "date" | "number" | "tel",
+    type: "text" | "password" | "email" | "date" | "number" | "tel" | "datetime-local",
     name: string,
     className?: string,
     placeholder?: string

@@ -6,6 +6,7 @@ import userAtom from "@/states/user";
 import { TDict } from "@/types/common";
 import { TUserType } from "@/types/user";
 import Form from "@/app/components/form/form";
+import { useRouter } from "next/navigation";
 
 
 export const errorLogin = () => {
@@ -19,6 +20,7 @@ interface Props {
 
 
 const LoginForm = (props: Props) => {
+    const router = useRouter();
     const setUser = useSetRecoilState(userAtom);
 
     const sucessLogin = (data: TDict) => {
@@ -28,6 +30,7 @@ const LoginForm = (props: Props) => {
             type: props.user
         };
         setUser(newUser);
+        router.push('/');
     }
 
     return (

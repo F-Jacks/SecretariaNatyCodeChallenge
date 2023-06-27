@@ -6,12 +6,13 @@ import TransitionsModal from "../components/modal";
 import axios from "axios";
 import userAtom from "@/states/user";
 import { useRecoilState } from "recoil";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import classNames from "classnames";
 import DelButton from "../components/delButton";
 
 
 const Delete = () => {
+    const router = useRouter();
     const [open, setOpen] = useState(false);
     const [user, setUser] = useRecoilState(userAtom);
     const [deleted, setDeleted] = useState(false);
@@ -22,19 +23,19 @@ const Delete = () => {
         if (!user) return;
 
         const url = `${deleteCofirm.url}${user.type === 'rider' ? 'Client' : 'Condutor'}/${user.id}/`;
-        axios.delete(url).then((res) => {
+
+        axios.delete(url, {data:{id: user.id}}).then((res) => {
+            console.log(res)
             setOpen(false);
             setUser(null);
             setDeleted(true);
             setError(false);
-            setTimeout(() => {
-                redirect('/');
-            }, 2500);
+            router.push('/');
         }).catch((_) => {
             setError(true);
             setTimeout(() => {
                 setError(false);
-            }, 3000);
+            }, 2000);
         });
     };
 

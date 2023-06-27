@@ -3,12 +3,14 @@
 import Form from "@/app/components/form/form";
 import { form } from "@/mocks/vehicles";
 import { TDict } from "@/types/common";
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 const Register = () => {
+    const router = useRouter();
+
     const sucessRegister = (data: TDict) => {
         console.log("sucess");
-        setTimeout(() => redirect('/'), 300)
+        router.push('/vehicles');
     };
 
     const errorRegister = () => {
@@ -18,6 +20,7 @@ const Register = () => {
 
     return (
         <section className="w-full mt-[60px] ltmd:mt-[68px] flex items-center justify-center h-full grow mx-auto px-[5%] max-w-4xl">
+            <h1></h1>
             <Form 
                 url={form.url}
                 inputs={form.inputs}

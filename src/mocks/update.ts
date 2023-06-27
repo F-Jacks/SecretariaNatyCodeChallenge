@@ -20,7 +20,7 @@ export const form: TFormConst = {
         inputs: [
             { name: "id", type: "number" },
             {name:"categoriaHabilitacao", type: "text"},
-            {name: "vencimentoHabilitacao", type: 'date'}
+            {name: "vencimentoHabilitacao", type: 'datetime-local'}
         ]
     }
 }

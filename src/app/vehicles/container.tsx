@@ -1,7 +1,8 @@
-import { updateVehicleText } from "@/mocks/vehicles";
 import { IVehicle } from "@/types/vehicle";
 import Link from "next/link";
 import DelButton from "../components/delButton";
+import { updateVehicleIcon } from "@/mocks/vehicles";
+import SvgIcon from "@mui/material/SvgIcon";
 
 
 interface Props extends IVehicle {
@@ -26,7 +27,7 @@ const Container = (props: Props) => {
                         href={`vehicle/${props.id}`}
                         className=""
                     >
-
+                        <SvgIcon component={updateVehicleIcon} viewBox="0 0 24 24" />
                     </Link>
                     <DelButton 
                         onClick={() => props.delCallback(props.id)}

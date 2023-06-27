@@ -7,14 +7,15 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { form } from '@/mocks/update';
 import { TDict, TDictTuple } from '@/types/common';
-import { redirect } from 'next/navigation'
 import headerLoadedAtom from '@/states/header';
 import FixedInfos from './fixedInfos';
 import Delete from './delete';
 import { loadingText } from '@/mocks/account';
+import { useRouter } from 'next/router';
 
 
 const Account = () => {
+    const router = useRouter();
     const [user, setUser] = useRecoilState(userAtom);
     const [userInputs, setUserInputs] = useState<TDict>({});
     const [fixedInfos, setFixedInfos] =  useState<TDictTuple>([]);
@@ -31,7 +32,7 @@ const Account = () => {
 
         dictInputs.forEach(inp => {
             const trueInp = form[user.type].inputs.find(input => input.name === inp[0]);
-            if (trueInp) {
+            if (trueInp !== undefined && trueInp !== null) {
                 newUserInputs[`${trueInp.apiType || "body"}__${trueInp.name}`] = `${inp[1]}`;
             } else {
                 newFixedInputs.push(inp);
@@ -45,7 +46,6 @@ const Account = () => {
     const getUserInfosFail = () => {
         setUserInputs({});
         setUser(null);
-        redirect('/');
     };
 
     useEffect(() => {
@@ -66,6 +66,7 @@ const Account = () => {
                 })
         } else {
             getUserInfosFail();
+            router.push('/');
         }
     }, [user, headerLoaded]);
 

@@ -108,7 +108,6 @@ const Form = (props: Props) => {
                 if (res.status === 200) {
                     props.callbackSucess(res.data);
                 } else {
-                    console
                     handleError();
                 }
             }).catch((_) => {
@@ -120,6 +119,8 @@ const Form = (props: Props) => {
 
 
         e.preventDefault();
+
+        setError(false);
 
         if(!canSend || !props.active === false) return;
 

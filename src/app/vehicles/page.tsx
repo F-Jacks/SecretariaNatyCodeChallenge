@@ -15,7 +15,7 @@ const Vehicle = () => {
     const getVehicles = async () => {
       try {
         const response = await axios.get(url);
-        setVehicles(response.data);
+        setVehicles(response.data.reverse());
       } catch (error) {
         console.log('Error while trying to fetch vehicles');
       }
@@ -28,7 +28,7 @@ const Vehicle = () => {
   const delCallback = (id: number) => {
     const delUrl = `${url}/${id}/`;
 
-    axios.delete(delUrl)
+    axios.delete(delUrl,{data: {id: id}})
       .then((_) => {
           setVehicles(old => old.filter(vehicle => vehicle.id !== id));
       })

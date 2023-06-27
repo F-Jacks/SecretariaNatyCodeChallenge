@@ -8,6 +8,7 @@ import { errorLogin } from "@/app/login/[user]/loginForm";
 import { TDict } from "@/types/common";
 import { TUserType } from "@/types/user";
 import Form from "@/app/components/form/form";
+import { useRouter } from "next/navigation";
 
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const RegisterForm = (props: Props) => {
+    const router = useRouter();
     const setUser = useSetRecoilState(userAtom);
     
 
@@ -34,7 +36,8 @@ const RegisterForm = (props: Props) => {
                     nome: res.data['nome'],
                     type: props.user
                 }
-                setUser(newUser)
+                setUser(newUser);
+                router.push('/');
             } else {
                 errorLogin();
             }
