@@ -7,7 +7,7 @@ export const menuLinks = [
 export const userLinks = {
     full: [
         'account',
-        'config',
+        'vehicle',
         'logout'
     ],
     empty: [

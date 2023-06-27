@@ -17,8 +17,8 @@ const Link = () => {
     useEffect(() => {
         if (user) {
             setLinkProps({
-                href: runLink[user.type].link,
-                text: runLink[user.type].text
+                href: runLink[user.type] ? runLink[user.type].link : clientLink.link,
+                text: runLink[user.type] ? runLink[user.type].text : link
             });
         } else {
             setLinkProps({

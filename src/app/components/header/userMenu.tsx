@@ -49,7 +49,7 @@ const UserMenu = (props: Props) => {
     }, [user]);
 
     useLayoutEffect(() => {
-        if ('user' in cookies) {
+        if ('user' in cookies && cookies.user !== 'null') {
             setUser(cookies.user);
             setHeaderLoaded(true);
         } else {

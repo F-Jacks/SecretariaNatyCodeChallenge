@@ -30,10 +30,10 @@ const Links = () => {
                 </> :
                 <>
                     <LinkButton
-                        href={runLink[user.type].link}
+                        href={runLink[user.type] ? runLink[user.type].link : "/"}
                         isFilled
                     >
-                        {runLink[user.type].text}
+                        {runLink[user.type] ? runLink[user.type].text : "start"}
                     </LinkButton>
                 </>
             }

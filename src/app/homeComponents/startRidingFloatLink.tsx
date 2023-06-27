@@ -14,8 +14,8 @@ const StartRidingFloatLink = () => {
     const user = useRecoilValue(userAtom);
     const [active, setActive] = useState(false);
     let link = {
-        href: user ? runLink[user.type].link : clientLink.link,
-        text: user ? runLink[user.type].text : title
+        href: user && runLink[user.type] ? runLink[user.type].link : clientLink.link,
+        text: user && runLink[user.type] ? runLink[user.type].text : title
     }
 
     useLayoutEffect(() => {
