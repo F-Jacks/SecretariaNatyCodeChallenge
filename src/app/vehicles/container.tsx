@@ -1,8 +1,14 @@
 import { updateVehicleText } from "@/mocks/vehicles";
 import { IVehicle } from "@/types/vehicle";
-import LinkButton from "../components/linkButton";
+import Link from "next/link";
+import DelButton from "../components/delButton";
 
-const Container = (props: IVehicle) => {
+
+interface Props extends IVehicle {
+    delCallback: (id: number) => void
+}
+
+const Container = (props: Props) => {
     return (
         <li>
             <article>
@@ -16,12 +22,15 @@ const Container = (props: IVehicle) => {
                     <p>{props.id}</p>
                 </div>
                 <div>
-                    <LinkButton 
+                    <Link 
                         href={`vehicle/${props.id}`}
-                        isFilled
+                        className=""
                     >
-                        {updateVehicleText}
-                    </LinkButton>
+
+                    </Link>
+                    <DelButton 
+                        onClick={() => props.delCallback(props.id)}
+                    />
                 </div>
             </article>
         </li>

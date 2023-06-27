@@ -45,6 +45,11 @@ const Form = (props: Props) => {
 
     const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
+        
+        let trueValue: any = value;
+        if (e.target.type === "number") {
+            trueValue = parseInt(value);
+        }
     
         setFormValues((old) => {
           const inputType = props.inputs.find(inp => inp.name === name)?.apiType;
@@ -53,7 +58,7 @@ const Form = (props: Props) => {
     
           return {
             ...old,
-            [index]: value.toString()
+            [index]: trueValue
           };
         });
         setError(false);
@@ -98,11 +103,12 @@ const Form = (props: Props) => {
     
         const _sendReq = () => {
             const atrs = _makeAtrs();
-    
+
             axios(atrs).then((res) => {
                 if (res.status === 200) {
                     props.callbackSucess(res.data);
                 } else {
+                    console
                     handleError();
                 }
             }).catch((_) => {

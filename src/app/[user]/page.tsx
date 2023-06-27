@@ -3,6 +3,7 @@ import LinkButton from '../components/linkButton';
 import { image, login, register, text, title } from '@/mocks/home/sign';
 import { TUserType } from '@/types/user';
 import HomeRedirectorUser from '@/middlewares/homeRedirector';
+import { redirect } from 'next/navigation';
 
 
 interface Props {
@@ -12,6 +13,10 @@ interface Props {
 }
 
 const Sign = ({params}: Props) => {
+    if (params.user !== "rider" && params.user !== 'driver') {
+        redirect('/');
+    } 
+
     return (
         <>
             <section className="min-h-[35rem] w-full mt-[60px] ltmd:mt-[68px] grow relative grid grid-cols-[4px_1fr_25%] grid-row-[1fr_auto_auto] gap-4 justify-items-end items-center">
@@ -33,11 +38,11 @@ const Sign = ({params}: Props) => {
                 </h2>
             </section>
             <section className='flex flex-col gap-y-[1.6rem] lt:flex-row gap-x-8 px-[5%] mx-auto w-full max-w-6xl'>
-                <LinkButton href={register[params.user].link}>
-                    {register[params.user].text}
+                <LinkButton href={register[params.user] ? register[params.user].link : ""}>
+                    {register[params.user] ? register[params.user].text : ''}
                 </LinkButton>
-                <LinkButton href={login[params.user].link} isFilled>
-                    {login[params.user].text}
+                <LinkButton href={login[params.user] ? login[params.user].link : ""} isFilled>
+                    {login[params.user] ? login[params.user].text : ""}
                 </LinkButton>
             </section>
             <HomeRedirectorUser />

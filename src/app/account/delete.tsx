@@ -1,7 +1,6 @@
 "use client"
 
-import { deleteCofirm, deleteIcon, deleteTitle } from "@/mocks/account";
-import SvgIcon from "@mui/material/SvgIcon";
+import { deleteCofirm, deleteTitle } from "@/mocks/account";
 import { useState } from "react";
 import TransitionsModal from "../components/modal";
 import axios from "axios";
@@ -9,6 +8,7 @@ import userAtom from "@/states/user";
 import { useRecoilState } from "recoil";
 import { redirect } from "next/navigation";
 import classNames from "classnames";
+import DelButton from "../components/delButton";
 
 
 const Delete = () => {
@@ -43,15 +43,9 @@ const Delete = () => {
             <span className='text-[rgba(255,255,255,0.4)] '>
                 {deleteTitle}
             </span>
-            <button
-                className='bg-red-700 h-8 w-8 rounded-[8px]'
+            <DelButton 
                 onClick={() => setOpen(true)}
-            >
-                <SvgIcon 
-                    component={deleteIcon} 
-                    inheritViewBox 
-                />
-            </button>
+            />
             <TransitionsModal
                 open={open}
                 setOpen={setOpen}

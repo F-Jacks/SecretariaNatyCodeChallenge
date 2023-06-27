@@ -24,6 +24,20 @@ const Vehicle = () => {
     getVehicles();
   }, []);
 
+
+  const delCallback = (id: number) => {
+    const delUrl = `${url}/${id}/`;
+
+    axios.delete(delUrl)
+      .then((_) => {
+          setVehicles(old => old.filter(vehicle => vehicle.id !== id));
+      })
+      .catch((_) => {
+        console.log("error");
+      })
+  }
+
+
   return (
     <>
       <section className="mx-auto px-[5%] w-full mt-[60px] ltmd:mt-[68px]">
@@ -37,7 +51,11 @@ const Vehicle = () => {
       <section>
         <ul>
           {vehicles.map((v, idx) => (
-            <Container key={idx} {...v} />
+            <Container 
+              key={idx} 
+              {...v} 
+              delCallback={delCallback}
+            />
           ))}
         </ul>
       </section>
