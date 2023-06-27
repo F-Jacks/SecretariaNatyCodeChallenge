@@ -1,6 +1,5 @@
 "use client"
 
-import HomeRedirectorUser from "@/middlewares/homeRedirector";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Container from "./container";
